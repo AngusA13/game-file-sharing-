@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero-Setup Global File Share</title>
+    <title>Instant Global File Share</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; background: #f4f5f7; color: #333; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
@@ -12,84 +12,113 @@
         button { background: #2ea44f; color: white; font-weight: bold; border: none; cursor: pointer; }
         button:hover { background: #2c974b; }
         ul { list-style: none; padding: 0; }
-        li { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        a { color: #0366d6; text-decoration: none; font-weight: 500; }
-        a:hover { text-decoration: underline; }
+        li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        a.btn { background: #0366d6; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 500; }
+        a.btn:hover { background: #0056b3; }
+        .file-name { word-break: break-all; margin-right: 15px; }
     </style>
 </head>
 <body>
 
     <div class="card">
-<div>
-        <h2>📤 Upload a File</h2>
+        <h2>📤 Fast Upload (No Sign-in)</h2>
         <input type="file" id="filePicker">
-        <button onclick="uploadFile()">Upload</button>
+        <button onclick="uploadFile()">Post to Global Feed</button>
         <p id="status" style="font-size: 13px; color: #666; margin-top: 8px;"></p>
-    </div></div>
+    </div>
 
     <div class="card">
-        <h2>📥 Shared Files Feed</h2>
+        <h2>📥 Global Shared Files</h2>
         <ul id="fileList">
             <li>Loading files...</li>
         </ul>
     </div>
 
-    <!-- Puter.js script handles cloud storage with zero backend setup -->
-    <script src="https://js.puter.com/v2/"></script>
     <script>
-        const STORAGE_FOLDER = 'global_shared_files/';
+        // Replace with your npoint.io JSON bin URL
+        const DB_URL = 'https://api.npoint.io/336338e55e3734612300'; 
 
         async function loadFiles() {
             const listEl = document.getElementById('fileList');
-            listEl.innerHTML = '<li>Loading files...</li>';
             try {
-                // Ensure the folder exists
-                await puter.fs.mkdir(STORAGE_FOLDER).catch(() => {});
-                const items = await puter.fs.readdir(STORAGE_FOLDER);
-                
+                const response = await fetch(DB_URL);
+                const data = await response.json();
+                const files = data.files || [];
+
                 listEl.innerHTML = '';
-                if (items.length === 0) {
+                if (files.length === 0) {
                     listEl.innerHTML = '<li>No files uploaded yet. Be the first!</li>';
                     return;
                 }
 
-                for (const item of items) {
-                    if (item.isFile) {
-                        const li = document.createElement('li');
-                        const url = await puter.fs.read(STORAGE_FOLDER + item.name).then(blob => URL.createObjectURL(blob));
-                        
-                        li.innerHTML = `<span>${item.name}</span> <a href="${url}" download="${item.name}">Download</a>`;
-                        listEl.appendChild(li);
-                    }
-                }
+                files.reverse().forEach(file => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span class="file-name"><strong>${escapeHtml(file.name)}</strong></span>
+                        <a class="btn" href="${file.url}" target="_blank" download>Download</a>
+                    `;
+                    listEl.appendChild(li);
+                });
             } catch (err) {
-                listEl.innerHTML = '<li>Error loading files. Make sure you are signed in.</li>';
+                listEl.innerHTML = '<li>Error loading files from the global feed.</li>';
             }
         }
 
         async function uploadFile() {
             const fileInput = document.getElementById('filePicker');
             const statusEl = document.getElementById('status');
+            
             if (fileInput.files.length === 0) {
                 alert('Please select a file first!');
                 return;
             }
 
             const file = fileInput.files[0];
-            statusEl.innerText = 'Uploading...';
+            statusEl.innerText = 'Uploading via high-speed server...';
 
             try {
-                await puter.fs.mkdir(STORAGE_FOLDER).catch(() => {});
-                await puter.fs.write(STORAGE_FOLDER + file.name, file);
-                statusEl.innerText = 'Upload successful!';
+                // Using Litterbox fast anonymous storage API
+                const formData = new FormData();
+                formData.append('reqtype', 'fileupload');
+                formData.append('time', '72h'); // Keeps files active for 3 days
+                formData.append('fileToUpload', file);
+                
+                const uploadRes = await fetch('https://litterbox.catbox.moe/resources/internals/api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const fileUrl = await uploadRes.text();
+                if (!fileUrl.startsWith('http')) {
+                    throw new Error('Upload failed.');
+                }
+
+                // Update database feed
+                statusEl.innerText = 'Updating global feed...';
+                const dbRes = await fetch(DB_URL);
+                const dbData = await dbRes.json();
+                const files = dbData.files || [];
+
+                files.push({ name: file.name, url: fileUrl.trim() });
+
+                await fetch(DB_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ files: files })
+                });
+
+                statusEl.innerText = 'Uploaded successfully!';
                 fileInput.value = '';
                 loadFiles();
             } catch (err) {
-                statusEl.innerText = 'Upload failed: ' + err.message;
+                statusEl.innerText = 'Error: ' + err.message;
             }
         }
 
-        // Load files when the page opens
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
         loadFiles();
     </script>
 </body>

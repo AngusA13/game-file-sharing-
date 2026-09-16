@@ -12,24 +12,23 @@
   --accent:#0a84ff;
   --accent2:#007aff;
   --bg:#f5f5f7;
-  --panel:rgba(255,255,255,.78);
-  --panel2:rgba(255,255,255,.55);
+  --panel:rgba(255,255,255,.82);
+  --panel2:rgba(255,255,255,.58);
   --text:#111;
   --muted:#6e6e73;
   --border:rgba(0,0,0,.08);
   --shadow:0 20px 60px rgba(0,0,0,.12);
-  --danger:#ff3b30;
   --green:#34c759;
 }
 
 body.dark{
   --bg:#08090b;
-  --panel:rgba(28,28,32,.82);
-  --panel2:rgba(40,40,45,.65);
+  --panel:rgba(28,28,32,.84);
+  --panel2:rgba(42,42,47,.66);
   --text:#f5f5f7;
   --muted:#98989f;
   --border:rgba(255,255,255,.09);
-  --shadow:0 25px 70px rgba(0,0,0,.45);
+  --shadow:0 25px 70px rgba(0,0,0,.5);
 }
 
 html,body{
@@ -39,8 +38,8 @@ html,body{
   overflow:hidden;
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Arial,sans-serif;
   background:
-    radial-gradient(circle at 20% 10%,rgba(10,132,255,.12),transparent 30%),
-    radial-gradient(circle at 80% 90%,rgba(175,82,222,.12),transparent 30%),
+    radial-gradient(circle at 15% 10%,rgba(10,132,255,.13),transparent 30%),
+    radial-gradient(circle at 85% 85%,rgba(94,92,230,.13),transparent 30%),
     var(--bg);
   color:var(--text);
 }
@@ -52,15 +51,6 @@ button,input{
 button{
   border:0;
 }
-
-#app{
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-}
-
-/* TOP BAR */
 
 .topbar{
   height:62px;
@@ -80,20 +70,22 @@ button{
   display:flex;
   align-items:center;
   gap:10px;
-  font-weight:750;
+  font-weight:760;
   font-size:20px;
   letter-spacing:-.5px;
 }
 
 .logoIcon{
-  width:34px;
-  height:34px;
+  width:35px;
+  height:35px;
   border-radius:11px;
   display:grid;
   place-items:center;
-  color:white;
+  color:#fff;
   background:linear-gradient(135deg,#0a84ff,#5e5ce6);
   box-shadow:0 6px 18px rgba(10,132,255,.3);
+  font-size:20px;
+  font-weight:800;
 }
 
 .topSpacer{
@@ -107,15 +99,15 @@ button{
   background:var(--panel2);
   color:var(--text);
   cursor:pointer;
-  transition:.18s;
   display:grid;
   place-items:center;
   font-size:18px;
+  transition:.18s;
 }
 
 .topButton:hover{
-  transform:translateY(-1px);
   background:rgba(10,132,255,.12);
+  transform:translateY(-1px);
 }
 
 .topButton:active{
@@ -139,7 +131,7 @@ button{
   height:30px;
   border-radius:50%;
   background:linear-gradient(135deg,#0a84ff,#5e5ce6);
-  color:white;
+  color:#fff;
   display:grid;
   place-items:center;
   font-size:13px;
@@ -147,21 +139,18 @@ button{
   overflow:hidden;
 }
 
-.avatar img{
+.avatar img,
+.bigAvatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-
-/* MAIN */
 
 .main{
   flex:1;
   min-height:0;
   display:flex;
 }
-
-/* SIDEBAR */
 
 .sidebar{
   width:285px;
@@ -190,7 +179,6 @@ button{
   border-radius:14px;
   background:rgba(10,132,255,.12);
   border:1px solid rgba(10,132,255,.15);
-  cursor:pointer;
 }
 
 .roomRow{
@@ -239,8 +227,6 @@ button{
   font-weight:650;
 }
 
-/* CONTENT */
-
 .content{
   flex:1;
   min-width:0;
@@ -288,8 +274,6 @@ button{
   border-color:rgba(10,132,255,.5);
   box-shadow:0 0 0 3px rgba(10,132,255,.12);
 }
-
-/* FEED */
 
 .feed{
   flex:1;
@@ -382,7 +366,7 @@ button{
   flex:1;
   height:38px;
   border-radius:11px;
-  color:white;
+  color:#fff;
   background:var(--accent);
   cursor:pointer;
   font-weight:650;
@@ -424,8 +408,6 @@ button{
   margin-bottom:15px;
 }
 
-/* UPLOAD */
-
 .uploadDock{
   position:absolute;
   left:28px;
@@ -442,7 +424,7 @@ button{
   padding:0 25px;
   border-radius:18px;
   background:var(--accent);
-  color:white;
+  color:#fff;
   font-weight:720;
   box-shadow:0 12px 30px rgba(10,132,255,.3);
   cursor:pointer;
@@ -460,8 +442,6 @@ button{
 #fileInput{
   display:none;
 }
-
-/* DROP OVERLAY */
 
 .dropOverlay{
   position:absolute;
@@ -501,8 +481,6 @@ button{
   color:var(--muted);
   margin-top:8px;
 }
-
-/* MODALS */
 
 .modalLayer{
   position:fixed;
@@ -562,11 +540,9 @@ button{
 }
 
 .modalButton.primary{
-  color:white;
+  color:#fff;
   background:var(--accent);
 }
-
-/* PROFILE */
 
 .profileCenter{
   display:flex;
@@ -583,16 +559,10 @@ button{
   display:grid;
   place-items:center;
   overflow:hidden;
-  color:white;
+  color:#fff;
   font-size:28px;
   font-weight:750;
   background:linear-gradient(135deg,#0a84ff,#5e5ce6);
-}
-
-.bigAvatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
 }
 
 .profileInput{
@@ -606,8 +576,6 @@ button{
   color:var(--text);
   outline:none;
 }
-
-/* SETTINGS */
 
 .settingRow{
   display:flex;
@@ -645,15 +613,13 @@ button{
   width:21px;
   height:21px;
   border-radius:50%;
-  background:white;
+  background:#fff;
   transition:.2s;
 }
 
 .switch.on .switchKnob{
   transform:translateX(19px);
 }
-
-/* TOAST */
 
 .toast{
   position:fixed;
@@ -662,8 +628,8 @@ button{
   transform:translate(-50%,20px);
   padding:11px 17px;
   border-radius:14px;
-  background:rgba(30,30,32,.92);
-  color:white;
+  background:rgba(30,30,32,.94);
+  color:#fff;
   font-size:13px;
   opacity:0;
   pointer-events:none;
@@ -676,8 +642,6 @@ button{
   opacity:1;
   transform:translate(-50%,0);
 }
-
-/* RESPONSIVE */
 
 @media(max-width:850px){
   .sidebar{
@@ -739,315 +703,495 @@ button{
 
 <div id="app">
 
-  <header class="topbar">
+<header class="topbar">
 
-    <div class="logo">
-      <div class="logoIcon">↓</div>
-      <span>DropShare</span>
+  <div class="logo">
+    <div class="logoIcon">↓</div>
+    <span>DropShare</span>
+  </div>
+
+  <div class="topSpacer"></div>
+
+  <button class="topButton" id="refreshBtn" title="Refresh">↻</button>
+  <button class="topButton" id="settingsBtn" title="Settings">⚙</button>
+
+  <button class="profileButton" id="profileBtn">
+    <div class="avatar" id="topAvatar">D</div>
+    <span id="topUsername">DropShare User</span>
+  </button>
+
+</header>
+
+<main class="main">
+
+<aside class="sidebar">
+
+  <div class="sidebarTitle">Spaces</div>
+
+  <div class="room">
+    <div class="roomRow">
+
+      <div class="roomIcon">🌎</div>
+
+      <div>
+        <div class="roomName">Public DropShare</div>
+        <div class="roomSub">Everyone sees this feed</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sidebarStats">
+
+    <div class="statLine">
+      <span>Files</span>
+      <span id="fileCount">0</span>
     </div>
 
-    <div class="topSpacer"></div>
-
-    <button class="topButton" id="refreshBtn" title="Refresh">↻</button>
-    <button class="topButton" id="settingsBtn" title="Settings">⚙</button>
-
-    <button class="profileButton" id="profileBtn">
-      <div class="avatar" id="topAvatar">D</div>
-      <span id="topUsername">DropShare User</span>
-    </button>
-
-  </header>
-
-  <main class="main">
-
-    <aside class="sidebar">
-
-      <div class="sidebarTitle">Spaces</div>
-
-      <div class="room">
-        <div class="roomRow">
-          <div class="roomIcon">🌎</div>
-          <div>
-            <div class="roomName">Public DropShare</div>
-            <div class="roomSub"><span id="onlineText">Shared feed</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebarStats">
-        <div class="statLine">
-          <span>Files</span>
-          <span id="fileCount">0</span>
-        </div>
-
-        <div class="statLine">
-          <span>Storage host</span>
-          <span>TempFile</span>
-        </div>
-
-        <div class="statLine">
-          <span>Expiry</span>
-          <span>6 hours</span>
-        </div>
-      </div>
-
-    </aside>
-
-    <section class="content">
-
-      <div class="contentHeader">
-
-        <div>
-          <div class="headerTitle">Public Files</div>
-          <div class="headerSub">Files shared by DropShare users</div>
-        </div>
-
-        <div class="headerSpacer"></div>
-
-        <input
-          id="searchInput"
-          class="search"
-          placeholder="Search files..."
-          autocomplete="off"
-        >
-
-      </div>
-
-      <div class="feed" id="feed">
-
-        <div class="empty" id="emptyState">
-          <div class="emptyIcon">☁️</div>
-          <div>No files yet</div>
-          <div style="font-size:12px;margin-top:5px">
-            Upload something to start the shared feed.
-          </div>
-        </div>
-
-        <div class="fileGrid" id="fileGrid"></div>
-
-      </div>
-
-      <div class="uploadDock">
-        <button class="uploadButton" id="uploadButton">
-          ＋ Upload File
-        </button>
-      </div>
-
-      <input id="fileInput" type="file">
-
-      <div class="dropOverlay" id="dropOverlay">
-        <div class="dropBox">
-          <div class="dropIcon">☁️</div>
-          <div class="dropTitle">Drop your file here</div>
-          <div class="dropSub">Your file will be uploaded to the shared DropShare feed.</div>
-        </div>
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-<!-- PROFILE MODAL -->
-
-<div class="modalLayer" id="profileModal">
-  <div class="modal">
-
-    <div class="modalTitle">Profile</div>
-    <div class="modalSub">Choose the name shown on your uploads.</div>
-
-    <div class="profileCenter">
-      <div class="bigAvatar" id="bigAvatar">D</div>
+    <div class="statLine">
+      <span>Storage</span>
+      <span>TempFile</span>
     </div>
+
+    <div class="statLine">
+      <span>Expiry</span>
+      <span>6 hours</span>
+    </div>
+
+  </div>
+
+</aside>
+
+<section class="content">
+
+  <div class="contentHeader">
+
+    <div>
+      <div class="headerTitle">Public Files</div>
+      <div class="headerSub">
+        Files shared by DropShare users
+      </div>
+    </div>
+
+    <div class="headerSpacer"></div>
 
     <input
-      id="usernameInput"
-      class="profileInput"
-      maxlength="24"
-      placeholder="Username"
+      id="searchInput"
+      class="search"
+      placeholder="Search files..."
+      autocomplete="off"
     >
 
-    <div class="modalActions">
-      <button class="modalButton" data-close="profileModal">Cancel</button>
-      <button class="modalButton primary" id="saveProfile">Save</button>
+  </div>
+
+  <div class="feed" id="feed">
+
+    <div class="empty" id="emptyState">
+
+      <div class="emptyIcon">☁️</div>
+
+      <div>No files yet</div>
+
+      <div style="font-size:12px;margin-top:5px">
+        Upload something to start the shared feed.
+      </div>
+
+    </div>
+
+    <div class="fileGrid" id="fileGrid"></div>
+
+  </div>
+
+  <div class="uploadDock">
+
+    <button class="uploadButton" id="uploadButton">
+      ＋ Upload File
+    </button>
+
+  </div>
+
+  <input id="fileInput" type="file">
+
+  <div class="dropOverlay" id="dropOverlay">
+
+    <div class="dropBox">
+
+      <div class="dropIcon">☁️</div>
+
+      <div class="dropTitle">
+        Drop your file here
+      </div>
+
+      <div class="dropSub">
+        Your file will be uploaded to the public DropShare feed.
+      </div>
+
     </div>
 
   </div>
+
+</section>
+
+</main>
+
 </div>
 
-<!-- SETTINGS MODAL -->
+<!-- PROFILE -->
+
+<div class="modalLayer" id="profileModal">
+
+<div class="modal">
+
+  <div class="modalTitle">Profile</div>
+
+  <div class="modalSub">
+    Choose the name shown on your uploads.
+  </div>
+
+  <div class="profileCenter">
+    <div class="bigAvatar" id="bigAvatar">D</div>
+  </div>
+
+  <input
+    id="usernameInput"
+    class="profileInput"
+    maxlength="24"
+    placeholder="Username"
+  >
+
+  <div class="modalActions">
+
+    <button
+      class="modalButton"
+      data-close="profileModal">
+      Cancel
+    </button>
+
+    <button
+      class="modalButton primary"
+      id="saveProfile">
+      Save
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+
+<!-- SETTINGS -->
 
 <div class="modalLayer" id="settingsModal">
-  <div class="modal">
 
-    <div class="modalTitle">Settings</div>
-    <div class="modalSub">DropShare preferences</div>
+<div class="modal">
 
-    <div class="settingRow">
-      <div>
-        <div class="settingLabel">Dark Mode</div>
-        <div class="settingSub">Use the darker DropShare appearance</div>
-      </div>
+  <div class="modalTitle">Settings</div>
 
-      <div class="switch" id="darkSwitch">
-        <div class="switchKnob"></div>
+  <div class="modalSub">
+    DropShare preferences
+  </div>
+
+  <div class="settingRow">
+
+    <div>
+      <div class="settingLabel">Dark Mode</div>
+      <div class="settingSub">
+        Use the darker DropShare appearance
       </div>
     </div>
 
-    <div class="settingRow">
-      <div>
-        <div class="settingLabel">6-hour uploads</div>
-        <div class="settingSub">Files automatically expire after 6 hours</div>
-      </div>
-
-      <div style="font-size:12px;color:var(--muted)">ON</div>
-    </div>
-
-    <div class="settingRow">
-      <div>
-        <div class="settingLabel">Shared feed</div>
-        <div class="settingSub">Everyone uses the same public index</div>
-      </div>
-
-      <div style="font-size:12px;color:var(--green)">ON</div>
-    </div>
-
-    <div class="modalActions">
-      <button class="modalButton primary" data-close="settingsModal">Done</button>
+    <div class="switch" id="darkSwitch">
+      <div class="switchKnob"></div>
     </div>
 
   </div>
+
+  <div class="settingRow">
+
+    <div>
+      <div class="settingLabel">Shared Feed</div>
+      <div class="settingSub">
+        Everyone uses the same public index
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:var(--green)">
+      ON
+    </div>
+
+  </div>
+
+  <div class="settingRow">
+
+    <div>
+      <div class="settingLabel">Automatic Expiry</div>
+      <div class="settingSub">
+        Files are hosted temporarily
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:var(--muted)">
+      6 hours
+    </div>
+
+  </div>
+
+  <div class="modalActions">
+
+    <button
+      class="modalButton primary"
+      data-close="settingsModal">
+      Done
+    </button>
+
+  </div>
+
+</div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+
 /*
 =========================================================
- DROP SHARE
- TempFile.org = actual temporary file storage
- MantleDB    = public shared DropShare index
+                  DROPSHARE BACKEND
+=========================================================
 
- IMPORTANT:
- This intentionally uses an UNCLAIMED MantleDB namespace
- so there is no account/key/setup required.
+Actual file:
+TempFile.org
 
- Change the namespace if you want a fresh DropShare feed.
+Shared index:
+MantleDB
+
+No Supabase.
+No Firebase.
+No API key.
+No database setup.
+
+Every DropShare copy uses this SAME namespace.
 =========================================================
 */
 
-const TEMPFILE_API =
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const TEMPFILE_UPLOAD =
   "https://tempfile.org/api/upload/local";
 
-/*
- The namespace is public.
 
- Anyone who knows this namespace can technically write to it.
- That is why this version is intended for a small personal/
- friends project rather than sensitive information.
+/*
+ IMPORTANT:
+
+ This is the shared public namespace.
+
+ MantleDB says unclaimed namespaces can be
+ read and written without authentication.
+
+ Everyone using this exact namespace therefore
+ sees the same DropShare files.
 */
 const MANTLE_NAMESPACE =
-  "dropshare-angus-public-2026";
+  "dropshare-public-angus-2026";
+
 
 /*
- 6 hours.
+ The MantleDB entry prefix.
 
- TempFile.org supports 1, 6, 24 and 48 hours.
+ Each file gets its own entry:
+
+ file/xxxxxxxx
+
+ That means the public list endpoint can
+ discover every uploaded file.
+*/
+const FILE_PREFIX =
+  "file";
+
+
+/*
+ TempFile supports 1, 6, 24 and 48 hours.
+
+ We use 6.
 */
 const EXPIRY_HOURS = 6;
 
-const MAX_FILE_SIZE =
-  100 * 1024 * 1024;
 
-/* ---------- STATE ---------- */
+/*
+ TempFile maximum:
+ 100 MB per file.
+*/
+const MAX_FILE_SIZE =
+ 100 * 1024 * 1024;
+
+
+/* =====================================================
+   STATE
+===================================================== */
 
 let files = [];
+
 let username =
-  localStorage.getItem("dropshare_username") ||
+  localStorage.getItem(
+    "dropshare_username"
+  ) ||
   "DropShare User";
 
-let avatar =
-  localStorage.getItem("dropshare_avatar") ||
-  "";
-
 let darkMode =
-  localStorage.getItem("dropshare_dark") === "true";
+  localStorage.getItem(
+    "dropshare_dark"
+  ) === "true";
 
-/* ---------- ELEMENTS ---------- */
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const fileInput =
-  document.getElementById("fileInput");
+  document.getElementById(
+    "fileInput"
+  );
 
 const uploadButton =
-  document.getElementById("uploadButton");
+  document.getElementById(
+    "uploadButton"
+  );
 
 const fileGrid =
-  document.getElementById("fileGrid");
+  document.getElementById(
+    "fileGrid"
+  );
 
 const emptyState =
-  document.getElementById("emptyState");
+  document.getElementById(
+    "emptyState"
+  );
 
 const searchInput =
-  document.getElementById("searchInput");
+  document.getElementById(
+    "searchInput"
+  );
 
 const toast =
-  document.getElementById("toast");
+  document.getElementById(
+    "toast"
+  );
 
 const profileModal =
-  document.getElementById("profileModal");
+  document.getElementById(
+    "profileModal"
+  );
 
 const settingsModal =
-  document.getElementById("settingsModal");
+  document.getElementById(
+    "settingsModal"
+  );
 
 const usernameInput =
-  document.getElementById("usernameInput");
+  document.getElementById(
+    "usernameInput"
+  );
 
 const topUsername =
-  document.getElementById("topUsername");
+  document.getElementById(
+    "topUsername"
+  );
 
 const topAvatar =
-  document.getElementById("topAvatar");
+  document.getElementById(
+    "topAvatar"
+  );
 
 const bigAvatar =
-  document.getElementById("bigAvatar");
+  document.getElementById(
+    "bigAvatar"
+  );
 
 const darkSwitch =
-  document.getElementById("darkSwitch");
+  document.getElementById(
+    "darkSwitch"
+  );
 
-/* ---------- HELPERS ---------- */
+const dropOverlay =
+  document.getElementById(
+    "dropOverlay"
+  );
+
+
+/* =====================================================
+   BASIC HELPERS
+===================================================== */
 
 function showToast(message){
 
-  toast.textContent = message;
+  toast.textContent =
+    message;
 
-  toast.classList.add("show");
+  toast.classList.add(
+    "show"
+  );
 
-  clearTimeout(showToast.timer);
+  clearTimeout(
+    showToast.timer
+  );
 
   showToast.timer =
-    setTimeout(()=>{
-      toast.classList.remove("show");
-    },2600);
+    setTimeout(
+      ()=>{
+        toast.classList.remove(
+          "show"
+        );
+      },
+      3000
+    );
 }
+
 
 function escapeHTML(value){
 
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
+
 
 function formatBytes(bytes){
 
-  if(!bytes)
+  if(
+    !bytes ||
+    bytes === 0
+  ){
     return "0 B";
+  }
 
   const units =
-    ["B","KB","MB","GB"];
+    [
+      "B",
+      "KB",
+      "MB",
+      "GB"
+    ];
 
   const i =
     Math.floor(
@@ -1056,20 +1200,48 @@ function formatBytes(bytes){
     );
 
   return (
-    (bytes /
-      Math.pow(1024,i)
-    ).toFixed(i === 0 ? 0 : 1)
-    + " "
-    + units[i]
+    (
+      bytes /
+      Math.pow(
+        1024,
+        i
+      )
+    ).toFixed(
+      i === 0
+        ? 0
+        : 1
+    )
+    +
+    " " +
+    units[i]
   );
 }
 
+
+function randomID(){
+
+  return (
+    Date.now()
+      .toString(36)
+    +
+    "-"
+    +
+    Math.random()
+      .toString(36)
+      .slice(2,10)
+  );
+}
+
+
 function getFileIcon(name){
 
-  const ext =
-    name.split(".").pop().toLowerCase();
+  const extension =
+    name
+      .split(".")
+      .pop()
+      .toLowerCase();
 
-  const map = {
+  const icons = {
 
     zip:"🗜️",
     rar:"🗜️",
@@ -1083,8 +1255,8 @@ function getFileIcon(name){
 
     mp4:"🎬",
     mov:"🎬",
-    webm:"🎬",
     avi:"🎬",
+    webm:"🎬",
 
     mp3:"🎵",
     wav:"🎵",
@@ -1111,58 +1283,127 @@ function getFileIcon(name){
     apk:"📦",
 
     iso:"💿"
-
   };
 
-  return map[ext] || "📄";
+  return (
+    icons[extension] ||
+    "📄"
+  );
 }
+
 
 function timeAgo(timestamp){
 
-  const diff =
+  const difference =
     Date.now() -
     Number(timestamp);
 
   const seconds =
-    Math.floor(diff / 1000);
+    Math.floor(
+      difference /
+      1000
+    );
 
-  if(seconds < 10)
+  if(
+    seconds < 10
+  ){
     return "just now";
+  }
 
-  if(seconds < 60)
+  if(
+    seconds < 60
+  ){
     return seconds + "s ago";
+  }
 
   const minutes =
-    Math.floor(seconds / 60);
+    Math.floor(
+      seconds /
+      60
+    );
 
-  if(minutes < 60)
+  if(
+    minutes < 60
+  ){
     return minutes + "m ago";
+  }
 
   const hours =
-    Math.floor(minutes / 60);
+    Math.floor(
+      minutes /
+      60
+    );
 
-  if(hours < 24)
+  if(
+    hours < 24
+  ){
     return hours + "h ago";
+  }
 
   const days =
-    Math.floor(hours / 24);
+    Math.floor(
+      hours /
+      24
+    );
 
   return days + "d ago";
 }
 
-function randomID(){
+
+function timeUntil(timestamp){
+
+  const remaining =
+    Number(timestamp) -
+    Date.now();
+
+  if(
+    remaining <= 0
+  ){
+    return "expired";
+  }
+
+  const minutes =
+    Math.floor(
+      remaining /
+      60000
+    );
+
+  if(
+    minutes < 60
+  ){
+    return minutes + "m";
+  }
+
+  const hours =
+    Math.floor(
+      minutes /
+      60
+    );
+
+  const mins =
+    minutes %
+    60;
+
+  if(
+    mins === 0
+  ){
+    return hours + "h";
+  }
 
   return (
-    Date.now().toString(36) +
-    Math.random()
-      .toString(36)
-      .slice(2,10)
+    hours +
+    "h " +
+    mins +
+    "m"
   );
 }
 
-/* ---------- PROFILE ---------- */
 
-function updateProfileUI(){
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function updateProfile(){
 
   topUsername.textContent =
     username;
@@ -1170,34 +1411,26 @@ function updateProfileUI(){
   usernameInput.value =
     username;
 
-  if(avatar){
+  const letter =
+    username
+      .trim()
+      .charAt(0)
+      .toUpperCase() ||
+    "D";
 
-    topAvatar.innerHTML =
-      `<img src="${escapeHTML(avatar)}">`;
+  topAvatar.textContent =
+    letter;
 
-    bigAvatar.innerHTML =
-      `<img src="${escapeHTML(avatar)}">`;
-
-  }else{
-
-    const letter =
-      username
-        .trim()
-        .charAt(0)
-        .toUpperCase() ||
-      "D";
-
-    topAvatar.textContent =
-      letter;
-
-    bigAvatar.textContent =
-      letter;
-  }
+  bigAvatar.textContent =
+    letter;
 }
 
-updateProfileUI();
+updateProfile();
 
-/* ---------- DARK MODE ---------- */
+
+/* =====================================================
+   THEME
+===================================================== */
 
 function applyTheme(){
 
@@ -1214,95 +1447,182 @@ function applyTheme(){
 
 applyTheme();
 
-/* ---------- MANTLEDB ---------- */
+
+/* =====================================================
+   MANTLEDB — LIST PUBLIC FILES
+===================================================== */
 
 /*
- Each uploaded file becomes one MantleDB entry.
+ EXACT documented endpoint:
 
- Example:
+ GET /v2/list/:namespace
 
- /v2/dropshare-angus-public-2026/file_abc123
-
- {
-   id,
-   name,
-   size,
-   url,
-   uploader,
-   uploadedAt,
-   expiresAt
- }
+ For an unclaimed namespace,
+ public entries are returned without a key.
 */
 
 async function mantleList(){
 
+  const url =
+    "https://mantledb.sh/v2/list/" +
+    encodeURIComponent(
+      MANTLE_NAMESPACE
+    );
+
   const response =
     await fetch(
-      `https://mantledb.sh/v2/list/${encodeURIComponent(MANTLE_NAMESPACE)}`,
+      url,
       {
+        method:"GET",
         cache:"no-store"
       }
     );
 
-  if(!response.ok){
+  if(
+    !response.ok
+  ){
 
     throw new Error(
-      "MantleDB list request failed (" +
-      response.status +
-      ")"
+      "MantleDB list failed: HTTP " +
+      response.status
     );
   }
 
   return response.json();
 }
 
-async function mantleRead(path){
+
+/* =====================================================
+   MANTLEDB — READ FILE ENTRY
+===================================================== */
+
+async function mantleRead(
+  path
+){
+
+  const url =
+    "https://mantledb.sh/v2/" +
+    encodeURIComponent(
+      MANTLE_NAMESPACE
+    ) +
+    "/" +
+    path
+      .split("/")
+      .map(
+        encodeURIComponent
+      )
+      .join("/");
 
   const response =
     await fetch(
-      `https://mantledb.sh/v2/${MANTLE_NAMESPACE}/${path}`,
+      url,
       {
+        method:"GET",
         cache:"no-store"
       }
     );
 
-  if(!response.ok)
+  if(
+    response.status === 404
+  ){
     return null;
+  }
+
+  if(
+    !response.ok
+  ){
+
+    throw new Error(
+      "MantleDB read failed: HTTP " +
+      response.status
+    );
+  }
 
   return response.json();
 }
 
-async function mantleWrite(path,data){
+
+/* =====================================================
+   MANTLEDB — WRITE FILE ENTRY
+===================================================== */
+
+/*
+ EXACT documented endpoint:
+
+ POST /v2/:namespace/*path
+
+ An unclaimed namespace doesn't need a key.
+*/
+
+async function mantleWrite(
+  path,
+  data
+){
+
+  const url =
+    "https://mantledb.sh/v2/" +
+    encodeURIComponent(
+      MANTLE_NAMESPACE
+    ) +
+    "/" +
+    path
+      .split("/")
+      .map(
+        encodeURIComponent
+      )
+      .join("/");
 
   const response =
     await fetch(
-      `https://mantledb.sh/v2/${MANTLE_NAMESPACE}/${path}`,
+      url,
       {
         method:"POST",
+
         headers:{
           "Content-Type":
             "application/json"
         },
+
         body:
-          JSON.stringify(data)
+          JSON.stringify(
+            data
+          )
       }
     );
 
-  if(!response.ok){
+  const responseText =
+    await response.text();
 
-    const text =
-      await response.text();
+  if(
+    !response.ok
+  ){
 
     throw new Error(
-      "MantleDB write failed: " +
-      text
+      "MantleDB write failed: HTTP " +
+      response.status +
+      " — " +
+      responseText
     );
   }
 
-  return response.json();
+  try{
+
+    return JSON.parse(
+      responseText
+    );
+
+  }catch{
+
+    return {
+      success:true
+    };
+  }
 }
 
-/* ---------- LOAD PUBLIC FEED ---------- */
+
+/* =====================================================
+   LOAD SHARED FEED
+===================================================== */
 
 async function loadFiles(){
 
@@ -1311,48 +1631,105 @@ async function loadFiles(){
     const result =
       await mantleList();
 
-    const entries =
-      result.entries || [];
-
-    const loaded = [];
-
     /*
-      Read every public entry.
+      MantleDB returns:
 
-      MantleDB's list endpoint only returns
-      paths and metadata, so each actual file
-      record is retrieved separately.
+      {
+        namespace:"...",
+        entries:[
+          {
+            path:"file/abc",
+            public_read:1,
+            updated_at:...
+          }
+        ]
+      }
     */
 
-    for(const entry of entries){
+    const entries =
+      Array.isArray(
+        result.entries
+      )
+      ? result.entries
+      : [];
+
+    const loaded =
+      [];
+
+    /*
+      Read every public file entry.
+    */
+
+    for(
+      const entry
+      of entries
+    ){
 
       if(
-        entry.public_read === 0 ||
-        entry.public_read === false
+        !entry ||
+        !entry.path
+      ){
+        continue;
+      }
+
+      /*
+        Only accept DropShare file entries.
+      */
+
+      if(
+        !entry.path.startsWith(
+          FILE_PREFIX + "/"
+        )
       ){
         continue;
       }
 
       const data =
-        await mantleRead(entry.path);
-
-      if(!data)
-        continue;
+        await mantleRead(
+          entry.path
+        );
 
       if(
-        data.expiresAt &&
-        Number(data.expiresAt) <= Date.now()
+        !data
       ){
         continue;
       }
 
-      loaded.push(data);
+      /*
+        Don't display entries whose TempFile
+        lifetime has already ended.
+      */
+
+      if(
+        data.expiresAt &&
+        Number(
+          data.expiresAt
+        ) <= Date.now()
+      ){
+        continue;
+      }
+
+      if(
+        !data.url ||
+        !data.name
+      ){
+        continue;
+      }
+
+      loaded.push(
+        data
+      );
     }
 
     loaded.sort(
-      (a,b) =>
-        Number(b.uploadedAt || 0) -
-        Number(a.uploadedAt || 0)
+      (a,b)=>
+        Number(
+          b.uploadedAt || 0
+        )
+        -
+        Number(
+          a.uploadedAt || 0
+        )
     );
 
     files =
@@ -1362,25 +1739,44 @@ async function loadFiles(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "DropShare feed error:",
+      error
+    );
+
+    /*
+      Don't hide the useful error from
+      the developer console.
+    */
 
     showToast(
-      "Couldn't load the shared feed."
+      "Couldn't load shared files."
     );
   }
 }
 
-/* ---------- UPLOAD ---------- */
 
-async function uploadFile(file){
+/* =====================================================
+   UPLOAD TO TEMPFILE
+===================================================== */
 
-  if(!file)
+async function uploadFile(
+  file
+){
+
+  if(
+    !file
+  ){
     return;
+  }
 
-  if(file.size > MAX_FILE_SIZE){
+  if(
+    file.size >
+    MAX_FILE_SIZE
+  ){
 
     showToast(
-      "That file is over the 100 MB limit."
+      "That file is over 100 MB."
     );
 
     return;
@@ -1388,16 +1784,23 @@ async function uploadFile(file){
 
   try{
 
+    uploadButton.disabled =
+      true;
+
+    uploadButton.textContent =
+      "Uploading…";
+
     showToast(
-      "Uploading " + file.name + "…"
+      "Uploading " +
+      file.name +
+      "…"
     );
 
-    /*
-      Send the actual file directly to
-      TempFile.org.
 
-      No API key is required.
-    */
+    /* ---------------------------------------------
+       STEP 1
+       Upload actual file to TempFile
+    --------------------------------------------- */
 
     const formData =
       new FormData();
@@ -1410,48 +1813,86 @@ async function uploadFile(file){
 
     formData.append(
       "expiryHours",
-      String(EXPIRY_HOURS)
+      String(
+        EXPIRY_HOURS
+      )
     );
 
-    const response =
+
+    const tempResponse =
       await fetch(
-        TEMPFILE_API,
+        TEMPFILE_UPLOAD,
         {
           method:"POST",
           body:formData
         }
       );
 
-    if(!response.ok){
+
+    const tempText =
+      await tempResponse.text();
+
+    let tempResult;
+
+    try{
+
+      tempResult =
+        JSON.parse(
+          tempText
+        );
+
+    }catch{
 
       throw new Error(
-        "TempFile returned HTTP " +
-        response.status
+        "TempFile returned invalid JSON: " +
+        tempText.slice(0,200)
       );
     }
 
-    const result =
-      await response.json();
 
     if(
-      !result.success ||
-      !result.files ||
-      !result.files.length
+      !tempResponse.ok ||
+      !tempResult.success
     ){
 
       throw new Error(
-        result.error ||
+        tempResult.error ||
         "TempFile upload failed."
       );
     }
 
-    const uploaded =
-      result.files[0];
 
-    /*
-      TempFile gives us the real
-      temporary file URL and expiry.
-    */
+    if(
+      !Array.isArray(
+        tempResult.files
+      ) ||
+      !tempResult.files.length
+    ){
+
+      throw new Error(
+        "TempFile didn't return a file."
+      );
+    }
+
+
+    const tempFile =
+      tempResult.files[0];
+
+
+    if(
+      !tempFile.url
+    ){
+
+      throw new Error(
+        "TempFile didn't return a download URL."
+      );
+    }
+
+
+    /* ---------------------------------------------
+       STEP 2
+       Build DropShare index record
+    --------------------------------------------- */
 
     const record = {
 
@@ -1459,22 +1900,25 @@ async function uploadFile(file){
         randomID(),
 
       tempfileId:
-        uploaded.id,
+        tempFile.id ||
+        "",
 
       name:
-        uploaded.name ||
+        tempFile.name ||
         file.name,
 
       size:
-        uploaded.size ||
-        file.size,
+        Number(
+          tempFile.size ||
+          file.size
+        ),
 
       type:
         file.type ||
         "application/octet-stream",
 
       url:
-        uploaded.url,
+        tempFile.url,
 
       uploader:
         username,
@@ -1483,52 +1927,77 @@ async function uploadFile(file){
         Date.now(),
 
       expiresAt:
-        uploaded.expiryTime ||
-        Date.now() +
-        EXPIRY_HOURS *
-        60 *
-        60 *
-        1000
+        Number(
+          tempFile.expiryTime
+        ) ||
+        (
+          Date.now()
+          +
+          EXPIRY_HOURS *
+          60 *
+          60 *
+          1000
+        )
 
     };
 
-    /*
-      Store the link + metadata in the
-      shared MantleDB index.
-    */
 
-    const path =
-      "file_" +
+    /* ---------------------------------------------
+       STEP 3
+       Save link in shared MantleDB
+    --------------------------------------------- */
+
+    const mantlePath =
+      FILE_PREFIX +
+      "/" +
       record.id;
 
+
     await mantleWrite(
-      path,
+      mantlePath,
       record
     );
 
-    /*
-      Immediately refresh so the file
-      appears just like everyone else's.
-    */
+
+    /* ---------------------------------------------
+       STEP 4
+       Reload shared feed
+    --------------------------------------------- */
 
     await loadFiles();
 
+
     showToast(
-      "Uploaded successfully!"
+      "Uploaded! Everyone can now see it."
     );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Upload error:",
+      error
+    );
 
     showToast(
       error.message ||
       "Upload failed."
     );
+
+  }finally{
+
+    uploadButton.disabled =
+      false;
+
+    uploadButton.textContent =
+      "＋ Upload File";
   }
 }
 
-/* ---------- RENDER ---------- */
+
+/* =====================================================
+   RENDER FILES
+===================================================== */
 
 function renderFiles(){
 
@@ -1538,31 +2007,55 @@ function renderFiles(){
       .toLowerCase();
 
   const filtered =
-    files.filter(file => {
+    files.filter(
+      file => {
 
-      if(!search)
-        return true;
+        if(
+          !search
+        ){
+          return true;
+        }
 
-      return (
-        String(file.name)
+        return (
+
+          String(
+            file.name
+          )
           .toLowerCase()
-          .includes(search) ||
+          .includes(
+            search
+          )
 
-        String(file.uploader)
+          ||
+
+          String(
+            file.uploader ||
+            ""
+          )
           .toLowerCase()
-          .includes(search)
-      );
+          .includes(
+            search
+          )
 
-    });
+        );
 
-  fileGrid.innerHTML = "";
+      }
+    );
+
+
+  fileGrid.innerHTML =
+    "";
+
 
   document.getElementById(
     "fileCount"
   ).textContent =
     files.length;
 
-  if(!filtered.length){
+
+  if(
+    filtered.length === 0
+  ){
 
     emptyState.style.display =
       "flex";
@@ -1570,36 +2063,56 @@ function renderFiles(){
     return;
   }
 
+
   emptyState.style.display =
     "none";
 
-  filtered.forEach(file => {
+
+  for(
+    const file
+    of filtered
+  ){
 
     const card =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     card.className =
       "fileCard";
+
 
     card.innerHTML = `
 
       <div class="fileTop">
 
         <div class="fileIcon">
-          ${getFileIcon(file.name)}
+          ${getFileIcon(
+            file.name
+          )}
         </div>
 
         <div class="fileInfo">
 
-          <div class="fileName"
-               title="${escapeHTML(file.name)}">
-            ${escapeHTML(file.name)}
+          <div
+            class="fileName"
+            title="${escapeHTML(
+              file.name
+            )}">
+            ${escapeHTML(
+              file.name
+            )}
           </div>
 
           <div class="fileMeta">
-            ${formatBytes(file.size)}
+            ${formatBytes(
+              file.size
+            )}
             ·
-            ${escapeHTML(file.uploader || "Unknown")}
+            ${escapeHTML(
+              file.uploader ||
+              "Unknown"
+            )}
           </div>
 
         </div>
@@ -1607,134 +2120,147 @@ function renderFiles(){
       </div>
 
       <div class="fileTime">
-        Uploaded ${timeAgo(file.uploadedAt)}
-        · expires ${timeUntil(file.expiresAt)}
+        Uploaded
+        ${timeAgo(
+          file.uploadedAt
+        )}
+        · expires in
+        ${timeUntil(
+          file.expiresAt
+        )}
       </div>
 
       <div class="fileActions">
 
         <button
           class="downloadButton"
-          data-url="${escapeHTML(file.url)}">
+          data-url="${escapeHTML(
+            file.url
+          )}">
           ↓ Download
         </button>
 
         <button
           class="copyButton"
-          data-copy="${escapeHTML(file.url)}"
-          title="Copy link">
+          data-copy="${escapeHTML(
+            file.url
+          )}"
+          title="Copy download link">
           🔗
         </button>
 
       </div>
+
     `;
 
-    fileGrid.appendChild(card);
 
-  });
+    fileGrid.appendChild(
+      card
+    );
+  }
 
-  document
-    .querySelectorAll(".downloadButton")
-    .forEach(button => {
-
-      button.onclick = () => {
-
-        const url =
-          button.dataset.url;
-
-        window.open(
-          url,
-          "_blank",
-          "noopener"
-        );
-      };
-
-    });
 
   document
-    .querySelectorAll(".copyButton")
-    .forEach(button => {
+    .querySelectorAll(
+      ".downloadButton"
+    )
+    .forEach(
+      button => {
 
-      button.onclick = async () => {
+        button.onclick =
+          () => {
 
-        try{
+            const url =
+              button.dataset.url;
 
-          await navigator.clipboard.writeText(
-            button.dataset.copy
-          );
+            window.open(
+              url,
+              "_blank",
+              "noopener"
+            );
+          };
 
-          showToast(
-            "Download link copied."
-          );
-
-        }catch{
-
-          showToast(
-            "Couldn't copy the link."
-          );
-        }
-
-      };
-
-    });
-
-}
-
-function timeUntil(timestamp){
-
-  const remaining =
-    Number(timestamp) -
-    Date.now();
-
-  if(remaining <= 0)
-    return "expired";
-
-  const minutes =
-    Math.floor(
-      remaining / 60000
+      }
     );
 
-  if(minutes < 60)
-    return minutes + "m";
 
-  const hours =
-    Math.floor(minutes / 60);
+  document
+    .querySelectorAll(
+      ".copyButton"
+    )
+    .forEach(
+      button => {
 
-  const mins =
-    minutes % 60;
+        button.onclick =
+          async () => {
 
-  if(mins === 0)
-    return hours + "h";
+            try{
 
-  return hours + "h " + mins + "m";
+              await navigator
+                .clipboard
+                .writeText(
+                  button.dataset.copy
+                );
+
+              showToast(
+                "Link copied."
+              );
+
+            }catch{
+
+              showToast(
+                "Couldn't copy link."
+              );
+            }
+
+          };
+
+      }
+    );
 }
 
-/* ---------- UPLOAD BUTTON ---------- */
+
+/* =====================================================
+   FILE INPUT
+===================================================== */
 
 uploadButton.onclick =
-  () => fileInput.click();
+  () => {
+
+    fileInput.click();
+
+  };
+
 
 fileInput.onchange =
   async () => {
 
-    const file =
-      fileInput.files[0];
+    const selected =
+      [...fileInput.files];
 
-    if(file)
-      await uploadFile(file);
+    fileInput.value =
+      "";
 
-    fileInput.value = "";
+    for(
+      const file
+      of selected
+    ){
+
+      await uploadFile(
+        file
+      );
+    }
 
   };
 
-/* ---------- DRAG AND DROP ---------- */
 
-const dropOverlay =
-  document.getElementById(
-    "dropOverlay"
-  );
+/* =====================================================
+   DRAG AND DROP
+===================================================== */
 
-let dragCounter = 0;
+let dragCounter =
+  0;
+
 
 window.addEventListener(
   "dragenter",
@@ -1747,16 +2273,20 @@ window.addEventListener(
     dropOverlay.classList.add(
       "show"
     );
+
   }
 );
+
 
 window.addEventListener(
   "dragover",
   event => {
 
     event.preventDefault();
+
   }
 );
+
 
 window.addEventListener(
   "dragleave",
@@ -1766,16 +2296,22 @@ window.addEventListener(
 
     dragCounter--;
 
-    if(dragCounter <= 0){
+    if(
+      dragCounter <= 0
+    ){
 
-      dragCounter = 0;
+      dragCounter =
+        0;
 
       dropOverlay.classList.remove(
         "show"
       );
+
     }
+
   }
 );
+
 
 window.addEventListener(
   "drop",
@@ -1783,66 +2319,80 @@ window.addEventListener(
 
     event.preventDefault();
 
-    dragCounter = 0;
+    dragCounter =
+      0;
 
     dropOverlay.classList.remove(
       "show"
     );
 
+
     const dropped =
       [...event.dataTransfer.files];
 
-    if(!dropped.length)
-      return;
 
-    /*
-      Upload files one at a time so
-      the temporary host/API is not
-      hammered by simultaneous requests.
-    */
+    for(
+      const file
+      of dropped
+    ){
 
-    for(const file of dropped){
+      await uploadFile(
+        file
+      );
 
-      await uploadFile(file);
     }
 
   }
 );
 
-/* ---------- SEARCH ---------- */
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 searchInput.addEventListener(
   "input",
   renderFiles
 );
 
-/* ---------- REFRESH ---------- */
+
+/* =====================================================
+   REFRESH
+===================================================== */
 
 document
-  .getElementById("refreshBtn")
-  .onclick = async () => {
+  .getElementById(
+    "refreshBtn"
+  )
+  .onclick =
+  async () => {
 
     showToast(
-      "Refreshing shared files…"
+      "Refreshing…"
     );
 
     await loadFiles();
 
-    showToast(
-      "Feed refreshed."
-    );
   };
 
-/* ---------- SETTINGS ---------- */
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 document
-  .getElementById("settingsBtn")
-  .onclick = () => {
+  .getElementById(
+    "settingsBtn"
+  )
+  .onclick =
+  () => {
 
     settingsModal.classList.add(
       "show"
     );
+
   };
+
 
 darkSwitch.onclick =
   () => {
@@ -1852,17 +2402,26 @@ darkSwitch.onclick =
 
     localStorage.setItem(
       "dropshare_dark",
-      darkMode
+      String(
+        darkMode
+      )
     );
 
     applyTheme();
+
   };
 
-/* ---------- PROFILE ---------- */
+
+/* =====================================================
+   PROFILE
+===================================================== */
 
 document
-  .getElementById("profileBtn")
-  .onclick = () => {
+  .getElementById(
+    "profileBtn"
+  )
+  .onclick =
+  () => {
 
     usernameInput.value =
       username;
@@ -1870,17 +2429,29 @@ document
     profileModal.classList.add(
       "show"
     );
+
   };
 
+
 document
-  .getElementById("saveProfile")
-  .onclick = () => {
+  .getElementById(
+    "saveProfile"
+  )
+  .onclick =
+  () => {
 
     const value =
       usernameInput.value
-        .trim();
+        .trim()
+        .slice(
+          0,
+          24
+        );
 
-    if(!value){
+
+    if(
+      !value
+    ){
 
       showToast(
         "Enter a username."
@@ -1889,81 +2460,105 @@ document
       return;
     }
 
+
     username =
-      value.slice(0,24);
+      value;
+
 
     localStorage.setItem(
       "dropshare_username",
       username
     );
 
-    updateProfileUI();
+
+    updateProfile();
+
 
     profileModal.classList.remove(
       "show"
     );
 
+
     showToast(
       "Profile saved."
     );
+
   };
 
-/* ---------- CLOSE MODALS ---------- */
+
+/* =====================================================
+   CLOSE MODALS
+===================================================== */
 
 document
-  .querySelectorAll("[data-close]")
-  .forEach(button => {
+  .querySelectorAll(
+    "[data-close]"
+  )
+  .forEach(
+    button => {
 
-    button.onclick = () => {
+      button.onclick =
+        () => {
 
-      const id =
-        button.dataset.close;
+          document
+            .getElementById(
+              button.dataset.close
+            )
+            .classList.remove(
+              "show"
+            );
 
-      document
-        .getElementById(id)
-        .classList.remove("show");
+        };
 
-    };
+    }
+  );
 
-  });
 
 document
-  .querySelectorAll(".modalLayer")
-  .forEach(layer => {
+  .querySelectorAll(
+    ".modalLayer"
+  )
+  .forEach(
+    layer => {
 
-    layer.addEventListener(
-      "click",
-      event => {
+      layer.addEventListener(
+        "click",
+        event => {
 
-        if(event.target === layer){
+          if(
+            event.target ===
+            layer
+          ){
 
-          layer.classList.remove(
-            "show"
-          );
+            layer.classList.remove(
+              "show"
+            );
+
+          }
+
         }
+      );
 
-      }
-    );
+    }
+  );
 
-  });
 
-/* ---------- PERIODIC REFRESH ---------- */
+/* =====================================================
+   AUTOMATIC REFRESH
+===================================================== */
 
 /*
- Every 30 seconds, check the public index.
-
- This means if another person uploads
- a file, it appears automatically.
+ Check for new uploads every 15 seconds.
 */
 
 setInterval(
   loadFiles,
-  30000
+  15000
 );
 
+
 /*
- Re-render countdowns without downloading
- the database again.
+ Update the countdown text.
 */
 
 setInterval(
@@ -1971,7 +2566,10 @@ setInterval(
   30000
 );
 
-/* ---------- START ---------- */
+
+/* =====================================================
+   START
+===================================================== */
 
 loadFiles();
 
@@ -1979,4 +2577,3 @@ loadFiles();
 
 </body>
 </html>
-

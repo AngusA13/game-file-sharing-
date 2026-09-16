@@ -3,48 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>DropShare</title>
 
 <style>
-*{box-sizing:border-box}
-
-:root{
-  --accent:#0a84ff;
-  --accent2:#007aff;
-  --bg:#f5f5f7;
-  --panel:rgba(255,255,255,.82);
-  --panel2:rgba(255,255,255,.58);
-  --text:#111;
-  --muted:#6e6e73;
-  --border:rgba(0,0,0,.08);
-  --shadow:0 20px 60px rgba(0,0,0,.12);
-  --green:#34c759;
+*{
+  box-sizing:border-box;
 }
 
-body.dark{
-  --bg:#08090b;
-  --panel:rgba(28,28,32,.84);
-  --panel2:rgba(42,42,47,.66);
-  --text:#f5f5f7;
-  --muted:#98989f;
-  --border:rgba(255,255,255,.09);
-  --shadow:0 25px 70px rgba(0,0,0,.5);
-}
-
-html,body{
+html,
+body{
   margin:0;
   width:100%;
   height:100%;
-  overflow:hidden;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Arial,sans-serif;
-  background:
-    radial-gradient(circle at 15% 10%,rgba(10,132,255,.13),transparent 30%),
-    radial-gradient(circle at 85% 85%,rgba(94,92,230,.13),transparent 30%),
-    var(--bg);
-  color:var(--text);
 }
 
-button,input{
+body{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI",
+    sans-serif;
+
+  background:#f5f5f7;
+  color:#1d1d1f;
+  overflow:hidden;
+  transition:
+    background .25s ease,
+    color .25s ease;
+}
+
+button,
+input{
   font:inherit;
 }
 
@@ -52,284 +44,566 @@ button{
   border:0;
 }
 
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark{
+  background:#08090c;
+  color:#f5f5f7;
+}
+
+body.dark .topbar{
+  background:rgba(18,19,24,.82);
+  border-color:rgba(255,255,255,.08);
+}
+
+body.dark .sidebar{
+  background:rgba(15,16,21,.92);
+  border-color:rgba(255,255,255,.07);
+}
+
+body.dark .main{
+  background:
+    radial-gradient(
+      circle at 70% 0%,
+      rgba(10,132,255,.09),
+      transparent 35%
+    ),
+    #08090c;
+}
+
+body.dark .searchBox,
+body.dark .settingsPanel,
+body.dark .profilePanel,
+body.dark .fileCard,
+body.dark .statCard{
+  background:rgba(28,29,35,.82);
+  border-color:rgba(255,255,255,.08);
+  color:#f5f5f7;
+}
+
+body.dark .searchBox input{
+  color:white;
+}
+
+body.dark .searchBox input::placeholder{
+  color:#8e8e93;
+}
+
+body.dark .muted{
+  color:#98989f;
+}
+
+body.dark .sidebarItem{
+  color:#d1d1d6;
+}
+
+body.dark .sidebarItem:hover{
+  background:rgba(255,255,255,.07);
+}
+
+body.dark .sidebarItem.active{
+  background:rgba(10,132,255,.18);
+  color:#62adff;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
 .topbar{
-  height:62px;
-  min-height:62px;
+  height:64px;
+  width:100%;
+
   display:flex;
   align-items:center;
+  justify-content:space-between;
+
   padding:0 18px;
-  gap:14px;
-  background:var(--panel);
-  backdrop-filter:blur(28px) saturate(180%);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);
-  border-bottom:1px solid var(--border);
+
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(25px) saturate(180%);
+  -webkit-backdrop-filter:blur(25px) saturate(180%);
+
+  border-bottom:1px solid rgba(0,0,0,.08);
+
+  position:relative;
   z-index:20;
 }
 
-.logo{
+.brand{
   display:flex;
   align-items:center;
-  gap:10px;
-  font-weight:760;
-  font-size:20px;
-  letter-spacing:-.5px;
+  gap:11px;
+
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:-.4px;
 }
 
-.logoIcon{
-  width:35px;
-  height:35px;
+.logo{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   border-radius:11px;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  background:linear-gradient(135deg,#0a84ff,#5e5ce6);
-  box-shadow:0 6px 18px rgba(10,132,255,.3);
-  font-size:20px;
-  font-weight:800;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0a84ff,
+      #5e5ce6
+    );
+
+  color:white;
+
+  box-shadow:
+    0 5px 15px rgba(10,132,255,.25);
+
+  font-size:19px;
 }
 
-.topSpacer{
-  flex:1;
+.topActions{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
-.topButton{
+.iconButton{
   width:38px;
   height:38px;
-  border-radius:12px;
-  background:var(--panel2);
-  color:var(--text);
+
+  border-radius:11px;
+
+  background:rgba(120,120,128,.10);
+  color:inherit;
+
   cursor:pointer;
-  display:grid;
-  place-items:center;
-  font-size:18px;
-  transition:.18s;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .16s ease,
+    background .16s ease;
 }
 
-.topButton:hover{
-  background:rgba(10,132,255,.12);
+.iconButton:hover{
+  background:rgba(120,120,128,.18);
   transform:translateY(-1px);
 }
 
-.topButton:active{
-  transform:scale(.94);
+.iconButton:active{
+  transform:scale(.93);
 }
 
 .profileButton{
   height:38px;
-  padding:0 12px 0 5px;
-  border-radius:20px;
-  background:var(--panel2);
-  color:var(--text);
+  padding:0 11px 0 5px;
+
   display:flex;
   align-items:center;
   gap:8px;
+
+  border-radius:12px;
+
+  background:rgba(120,120,128,.10);
+  color:inherit;
+
   cursor:pointer;
 }
 
 .avatar{
-  width:30px;
-  height:30px;
+  width:29px;
+  height:29px;
+
   border-radius:50%;
-  background:linear-gradient(135deg,#0a84ff,#5e5ce6);
-  color:#fff;
-  display:grid;
-  place-items:center;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0a84ff,
+      #5e5ce6
+    );
+
+  color:white;
   font-size:13px;
   font-weight:700;
+
   overflow:hidden;
 }
 
-.avatar img,
-.bigAvatar img{
+.avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-.main{
-  flex:1;
-  min-height:0;
+/* =========================
+   APP
+========================= */
+
+.app{
+  width:100%;
+  height:calc(100vh - 64px);
+
   display:flex;
 }
 
+/* =========================
+   SIDEBAR
+========================= */
+
 .sidebar{
-  width:285px;
-  min-width:285px;
-  background:var(--panel);
-  backdrop-filter:blur(28px);
-  -webkit-backdrop-filter:blur(28px);
-  border-right:1px solid var(--border);
-  padding:18px 14px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+  width:255px;
+  flex-shrink:0;
+
+  padding:18px 12px;
+
+  background:rgba(250,250,252,.92);
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+
+  border-right:1px solid rgba(0,0,0,.07);
+
+  overflow:auto;
 }
 
 .sidebarTitle{
-  font-size:13px;
+  padding:6px 11px 10px;
+
+  font-size:12px;
   font-weight:700;
-  color:var(--muted);
-  padding:3px 8px;
+
+  color:#8e8e93;
   text-transform:uppercase;
-  letter-spacing:.7px;
+  letter-spacing:.5px;
 }
 
-.room{
-  padding:13px 12px;
-  border-radius:14px;
-  background:rgba(10,132,255,.12);
-  border:1px solid rgba(10,132,255,.15);
-}
+.sidebarItem{
+  width:100%;
 
-.roomRow{
   display:flex;
   align-items:center;
   gap:11px;
+
+  padding:10px 11px;
+  margin-bottom:3px;
+
+  border-radius:10px;
+
+  background:transparent;
+
+  color:#333336;
+
+  cursor:pointer;
+
+  text-align:left;
+
+  transition:
+    background .15s ease,
+    transform .15s ease;
 }
 
-.roomIcon{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  background:var(--accent);
-  color:white;
+.sidebarItem:hover{
+  background:rgba(0,0,0,.055);
 }
 
-.roomName{
-  font-weight:650;
-  font-size:14px;
+.sidebarItem:active{
+  transform:scale(.985);
 }
 
-.roomSub{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:2px;
+.sidebarItem.active{
+  background:rgba(10,132,255,.11);
+  color:#007aff;
+  font-weight:600;
+}
+
+.sidebarIcon{
+  width:25px;
+  text-align:center;
+  font-size:18px;
 }
 
 .sidebarStats{
-  margin-top:auto;
+  margin-top:24px;
+  padding:0 6px;
+}
+
+.statCard{
   padding:13px;
-  border-radius:15px;
-  background:var(--panel2);
-  border:1px solid var(--border);
+
+  border-radius:14px;
+
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.06);
+
+  margin-bottom:8px;
 }
 
-.statLine{
-  display:flex;
-  justify-content:space-between;
+.statLabel{
+  color:#8e8e93;
   font-size:12px;
-  padding:4px 0;
 }
 
-.statLine span:last-child{
-  font-weight:650;
+.statValue{
+  margin-top:3px;
+
+  font-size:20px;
+  font-weight:700;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  flex:1;
+  min-width:0;
+
+  padding:25px 30px;
+
+  overflow:auto;
+
+  background:
+    radial-gradient(
+      circle at 70% 0%,
+      rgba(10,132,255,.06),
+      transparent 35%
+    ),
+    #f5f5f7;
 }
 
 .content{
-  flex:1;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  position:relative;
+  max-width:1250px;
+  margin:auto;
 }
 
-.contentHeader{
-  padding:22px 28px 14px;
+.headingRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  gap:20px;
+
+  margin-bottom:20px;
+}
+
+.heading h1{
+  margin:0;
+
+  font-size:31px;
+  letter-spacing:-1.2px;
+}
+
+.heading p{
+  margin:6px 0 0;
+
+  color:#8e8e93;
+  font-size:14px;
+}
+
+.uploadButton{
+  padding:11px 17px;
+
+  border-radius:12px;
+
+  background:#007aff;
+  color:white;
+
+  font-weight:650;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 5px 15px rgba(0,122,255,.2);
+
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease;
+}
+
+.uploadButton:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 8px 20px rgba(0,122,255,.27);
+}
+
+.uploadButton:active{
+  transform:scale(.97);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.searchBox{
+  height:46px;
+
   display:flex;
   align-items:center;
-  gap:16px;
+
+  gap:9px;
+
+  padding:0 14px;
+
+  margin-bottom:20px;
+
+  border-radius:14px;
+
+  background:white;
+
+  border:1px solid rgba(0,0,0,.07);
+
+  box-shadow:
+    0 2px 10px rgba(0,0,0,.025);
 }
 
-.headerTitle{
-  font-size:28px;
-  font-weight:780;
-  letter-spacing:-1px;
+.searchIcon{
+  color:#8e8e93;
+  font-size:17px;
 }
 
-.headerSub{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:2px;
-}
-
-.headerSpacer{
+.searchBox input{
   flex:1;
+
+  min-width:0;
+
+  border:0;
+  outline:0;
+
+  background:transparent;
+
+  color:#1d1d1f;
+
+  font-size:15px;
 }
 
-.search{
-  width:240px;
-  height:40px;
-  border-radius:13px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--text);
-  outline:none;
-  padding:0 13px;
-  backdrop-filter:blur(15px);
+/* =========================
+   DROP ZONE
+========================= */
+
+.dropZone{
+  border:1.5px dashed rgba(0,122,255,.3);
+
+  background:rgba(0,122,255,.035);
+
+  border-radius:17px;
+
+  padding:18px;
+
+  text-align:center;
+
+  margin-bottom:22px;
+
+  transition:
+    background .18s ease,
+    border-color .18s ease,
+    transform .18s ease;
 }
 
-.search:focus{
-  border-color:rgba(10,132,255,.5);
-  box-shadow:0 0 0 3px rgba(10,132,255,.12);
+.dropZone.dragging{
+  background:rgba(0,122,255,.11);
+  border-color:#007aff;
+  transform:scale(1.01);
 }
 
-.feed{
-  flex:1;
-  min-height:0;
-  overflow:auto;
-  padding:10px 28px 120px;
+.dropZone strong{
+  display:block;
+  font-size:14px;
 }
 
-.feed::-webkit-scrollbar{
-  width:9px;
+.dropZone span{
+  display:block;
+  margin-top:4px;
+  color:#8e8e93;
+  font-size:12px;
 }
 
-.feed::-webkit-scrollbar-thumb{
-  background:rgba(127,127,127,.25);
-  border-radius:20px;
-}
+/* =========================
+   FILE GRID
+========================= */
 
 .fileGrid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:14px;
-  max-width:1250px;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(280px,1fr)
+    );
+
+  gap:15px;
 }
 
 .fileCard{
-  position:relative;
-  border-radius:20px;
+  min-width:0;
+
   padding:17px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  box-shadow:0 8px 30px rgba(0,0,0,.05);
-  backdrop-filter:blur(22px);
-  transition:.2s;
-  overflow:hidden;
+
+  border-radius:17px;
+
+  background:rgba(255,255,255,.78);
+
+  border:1px solid rgba(0,0,0,.065);
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.035);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
 }
 
 .fileCard:hover{
   transform:translateY(-2px);
-  box-shadow:var(--shadow);
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.08);
+
+  border-color:rgba(0,122,255,.18);
 }
 
 .fileTop{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
 }
 
 .fileIcon{
-  width:48px;
-  height:48px;
-  min-width:48px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background:rgba(10,132,255,.12);
-  font-size:24px;
+  width:47px;
+  height:47px;
+
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,122,255,.13),
+      rgba(94,92,230,.13)
+    );
+
+  font-size:23px;
 }
 
 .fileInfo{
@@ -338,362 +612,468 @@ button{
 }
 
 .fileName{
-  font-weight:700;
+  font-size:15px;
+  font-weight:650;
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .fileMeta{
-  color:var(--muted);
+  margin-top:5px;
+
+  color:#8e8e93;
+
   font-size:12px;
-  margin-top:3px;
+
+  line-height:1.45;
 }
 
-.fileTime{
-  color:var(--muted);
+.expiry{
+  margin-top:10px;
+
+  color:#8e8e93;
+
   font-size:11px;
-  margin-top:12px;
 }
 
 .fileActions{
   display:flex;
-  gap:8px;
-  margin-top:14px;
+  gap:7px;
+
+  margin-top:15px;
 }
 
 .downloadButton{
   flex:1;
+
   height:38px;
+
   border-radius:11px;
-  color:#fff;
-  background:var(--accent);
+
+  background:#007aff;
+  color:white;
+
   cursor:pointer;
-  font-weight:650;
-  transition:.18s;
+
+  font-weight:600;
+
+  transition:
+    transform .15s ease,
+    background .15s ease;
 }
 
 .downloadButton:hover{
-  background:var(--accent2);
+  background:#006ee6;
   transform:translateY(-1px);
 }
 
-.copyButton{
-  width:42px;
-  height:38px;
-  border-radius:11px;
-  cursor:pointer;
-  color:var(--text);
-  background:var(--panel2);
-}
-
-.empty{
-  min-height:400px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  color:var(--muted);
-  text-align:center;
-}
-
-.emptyIcon{
-  width:75px;
-  height:75px;
-  border-radius:24px;
-  display:grid;
-  place-items:center;
-  font-size:34px;
-  background:var(--panel);
-  margin-bottom:15px;
-}
-
-.uploadDock{
-  position:absolute;
-  left:28px;
-  right:28px;
-  bottom:22px;
-  display:flex;
-  justify-content:center;
-  pointer-events:none;
-}
-
-.uploadButton{
-  pointer-events:auto;
-  height:54px;
-  padding:0 25px;
-  border-radius:18px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:720;
-  box-shadow:0 12px 30px rgba(10,132,255,.3);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.uploadButton:hover{
-  transform:translateY(-2px) scale(1.01);
-}
-
-.uploadButton:active{
+.downloadButton:active{
   transform:scale(.97);
 }
 
-#fileInput{
-  display:none;
+.copyButton,
+.deleteButton{
+  width:42px;
+  height:38px;
+
+  border-radius:11px;
+
+  cursor:pointer;
+
+  transition:
+    transform .15s ease,
+    background .15s ease;
 }
 
-.dropOverlay{
-  position:absolute;
-  inset:0;
-  display:none;
-  place-items:center;
-  z-index:30;
-  background:rgba(10,132,255,.14);
-  backdrop-filter:blur(8px);
+.copyButton{
+  background:rgba(120,120,128,.11);
+  color:inherit;
 }
 
-.dropOverlay.show{
-  display:grid;
+.copyButton:hover{
+  background:rgba(120,120,128,.18);
+  transform:translateY(-1px);
 }
 
-.dropBox{
-  width:min(520px,90%);
-  padding:50px;
-  border-radius:28px;
+.copyButton:active,
+.deleteButton:active{
+  transform:scale(.94);
+}
+
+.deleteButton{
+  background:rgba(255,59,48,.10);
+  color:#ff3b30;
+}
+
+.deleteButton:hover{
+  background:rgba(255,59,48,.18);
+  transform:translateY(-1px);
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.state{
+  grid-column:1/-1;
+
+  padding:55px 20px;
+
   text-align:center;
-  border:2px dashed rgba(10,132,255,.65);
-  background:var(--panel);
-  box-shadow:var(--shadow);
+
+  color:#8e8e93;
 }
 
-.dropIcon{
-  font-size:50px;
-  margin-bottom:12px;
+.stateIcon{
+  font-size:42px;
+  margin-bottom:10px;
 }
 
-.dropTitle{
-  font-size:24px;
-  font-weight:750;
+.state strong{
+  display:block;
+  color:inherit;
+  font-size:16px;
 }
 
-.dropSub{
-  color:var(--muted);
-  margin-top:8px;
+.state p{
+  margin:6px 0;
+  font-size:13px;
 }
 
-.modalLayer{
+/* =========================
+   MODALS
+========================= */
+
+.overlay{
   position:fixed;
   inset:0;
+
   z-index:100;
+
   display:none;
   align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,.35);
+
+  padding:20px;
+
+  background:rgba(0,0,0,.32);
+
   backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
 }
 
-.modalLayer.show{
+.overlay.show{
   display:flex;
 }
 
 .modal{
-  width:min(440px,92%);
-  border-radius:25px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-  padding:23px;
-  animation:modalIn .18s ease;
+  width:min(430px,100%);
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow:auto;
+
+  padding:22px;
+
+  border-radius:21px;
+
+  background:
+    rgba(255,255,255,.94);
+
+  border:1px solid rgba(0,0,0,.08);
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.22);
+
+  animation:
+    modalIn .18s ease;
+}
+
+body.dark .modal{
+  background:rgba(28,29,35,.96);
+  border-color:rgba(255,255,255,.08);
 }
 
 @keyframes modalIn{
-  from{opacity:0;transform:scale(.96) translateY(8px)}
-  to{opacity:1;transform:none}
+  from{
+    opacity:0;
+    transform:scale(.96) translateY(5px);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
 }
 
-.modalTitle{
-  font-size:21px;
-  font-weight:750;
-}
-
-.modalSub{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:4px;
-}
-
-.modalActions{
+.modalHeader{
   display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:20px;
-}
-
-.modalButton{
-  height:38px;
-  padding:0 15px;
-  border-radius:11px;
-  cursor:pointer;
-  background:var(--panel2);
-  color:var(--text);
-}
-
-.modalButton.primary{
-  color:#fff;
-  background:var(--accent);
-}
-
-.profileCenter{
-  display:flex;
-  flex-direction:column;
   align-items:center;
-  gap:10px;
-  margin:15px 0;
+  justify-content:space-between;
+
+  margin-bottom:20px;
 }
 
-.bigAvatar{
-  width:80px;
-  height:80px;
+.modalHeader h2{
+  margin:0;
+
+  font-size:21px;
+  letter-spacing:-.5px;
+}
+
+.closeButton{
+  width:32px;
+  height:32px;
+
   border-radius:50%;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  color:#fff;
-  font-size:28px;
-  font-weight:750;
-  background:linear-gradient(135deg,#0a84ff,#5e5ce6);
+
+  background:rgba(120,120,128,.11);
+  color:inherit;
+
+  cursor:pointer;
+
+  font-size:18px;
 }
 
-.profileInput{
-  width:100%;
-  height:42px;
-  margin-top:8px;
-  padding:0 12px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--text);
-  outline:none;
+.setting{
+  padding:14px 0;
+
+  border-bottom:1px solid rgba(120,120,128,.13);
+}
+
+.setting:last-child{
+  border-bottom:0;
+}
+
+.settingTitle{
+  font-weight:650;
+  font-size:14px;
+}
+
+.settingDescription{
+  margin-top:4px;
+
+  color:#8e8e93;
+
+  font-size:12px;
+  line-height:1.4;
 }
 
 .settingRow{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
+  justify-content:space-between;
+
+  gap:15px;
 }
 
-.settingLabel{
-  font-weight:600;
-}
+.toggle{
+  width:48px;
+  height:28px;
 
-.settingSub{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-.switch{
-  width:46px;
-  height:27px;
   border-radius:20px;
-  padding:3px;
-  background:#777;
+
+  background:#d1d1d6;
+
+  padding:2px;
+
   cursor:pointer;
+
   transition:.2s;
 }
 
-.switch.on{
-  background:var(--green);
-}
+.toggle span{
+  display:block;
 
-.switchKnob{
-  width:21px;
-  height:21px;
+  width:24px;
+  height:24px;
+
   border-radius:50%;
-  background:#fff;
+
+  background:white;
+
+  box-shadow:0 2px 5px rgba(0,0,0,.2);
+
   transition:.2s;
 }
 
-.switch.on .switchKnob{
-  transform:translateX(19px);
+.toggle.on{
+  background:#34c759;
 }
+
+.toggle.on span{
+  transform:translateX(20px);
+}
+
+.profileInput{
+  width:100%;
+
+  margin-top:10px;
+
+  padding:11px 12px;
+
+  border-radius:11px;
+
+  border:1px solid rgba(120,120,128,.22);
+
+  outline:0;
+
+  background:rgba(120,120,128,.08);
+
+  color:inherit;
+}
+
+.saveButton{
+  width:100%;
+
+  margin-top:12px;
+
+  padding:11px;
+
+  border-radius:11px;
+
+  background:#007aff;
+  color:white;
+
+  cursor:pointer;
+
+  font-weight:650;
+}
+
+/* =========================
+   TOAST
+========================= */
 
 .toast{
   position:fixed;
+
   left:50%;
-  bottom:25px;
-  transform:translate(-50%,20px);
-  padding:11px 17px;
-  border-radius:14px;
-  background:rgba(30,30,32,.94);
-  color:#fff;
-  font-size:13px;
+  bottom:24px;
+
+  z-index:200;
+
+  transform:
+    translate(-50%,20px);
+
   opacity:0;
   pointer-events:none;
-  transition:.22s;
-  z-index:300;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+  padding:11px 16px;
+
+  border-radius:13px;
+
+  background:
+    rgba(30,30,34,.92);
+
+  color:white;
+
+  font-size:13px;
+  font-weight:550;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.2);
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
 }
 
 .toast.show{
   opacity:1;
-  transform:translate(-50%,0);
+
+  transform:
+    translate(-50%,0);
 }
 
-@media(max-width:850px){
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
   .sidebar{
-    width:220px;
-    min-width:220px;
+    width:72px;
+    padding:14px 8px;
   }
 
-  .contentHeader{
-    padding-left:18px;
-    padding-right:18px;
-  }
-
-  .feed{
-    padding-left:18px;
-    padding-right:18px;
-  }
-
-  .uploadDock{
-    left:18px;
-    right:18px;
-  }
-
-  .search{
-    width:170px;
-  }
-}
-
-@media(max-width:650px){
-  .sidebar{
+  .sidebarTitle,
+  .sidebarItem span:not(.sidebarIcon),
+  .sidebarStats{
     display:none;
   }
 
-  .headerTitle{
-    font-size:23px;
+  .sidebarItem{
+    justify-content:center;
+    padding:12px 5px;
   }
 
-  .contentHeader{
-    gap:8px;
+  .main{
+    padding:20px 15px;
   }
 
-  .search{
-    flex:1;
-    min-width:0;
-    width:auto;
+  .headingRow{
+    align-items:flex-start;
+  }
+
+  .heading h1{
+    font-size:25px;
+  }
+
+  .uploadButton{
+    padding:10px 12px;
+  }
+
+}
+
+@media(max-width:550px){
+
+  .topbar{
+    height:58px;
+  }
+
+  .app{
+    height:calc(100vh - 58px);
+  }
+
+  .brand{
+    font-size:16px;
+  }
+
+  .logo{
+    width:32px;
+    height:32px;
+  }
+
+  .profileButton{
+    padding-right:5px;
+  }
+
+  .profileButton > span{
+    display:none;
+  }
+
+  .main{
+    padding:16px 11px;
+  }
+
+  .headingRow{
+    display:block;
+  }
+
+  .uploadButton{
+    margin-top:13px;
+    width:100%;
   }
 
   .fileGrid{
     grid-template-columns:1fr;
   }
 
-  .profileButton span{
-    display:none;
+  .dropZone{
+    padding:15px 10px;
   }
 }
 </style>
@@ -701,336 +1081,384 @@ button{
 
 <body>
 
-<div id="app">
+<!-- =========================
+     TOP BAR
+========================= -->
 
 <header class="topbar">
 
-  <div class="logo">
-    <div class="logoIcon">↓</div>
+  <div class="brand">
+    <div class="logo">↥</div>
     <span>DropShare</span>
   </div>
 
-  <div class="topSpacer"></div>
+  <div class="topActions">
 
-  <button class="topButton" id="refreshBtn" title="Refresh">↻</button>
-  <button class="topButton" id="settingsBtn" title="Settings">⚙</button>
+    <button
+      class="iconButton"
+      id="refreshButton"
+      title="Refresh">
+      ↻
+    </button>
 
-  <button class="profileButton" id="profileBtn">
-    <div class="avatar" id="topAvatar">D</div>
-    <span id="topUsername">DropShare User</span>
-  </button>
+    <button
+      class="iconButton"
+      id="settingsButton"
+      title="Settings">
+      ⚙
+    </button>
+
+    <button
+      class="profileButton"
+      id="profileButton">
+
+      <div class="avatar" id="topAvatar">
+        A
+      </div>
+
+      <span id="topUsername">
+        Guest
+      </span>
+
+    </button>
+
+  </div>
 
 </header>
 
-<main class="main">
+<!-- =========================
+     APP
+========================= -->
 
-<aside class="sidebar">
+<div class="app">
 
-  <div class="sidebarTitle">Spaces</div>
+  <!-- SIDEBAR -->
 
-  <div class="room">
-    <div class="roomRow">
+  <aside class="sidebar">
 
-      <div class="roomIcon">🌎</div>
-
-      <div>
-        <div class="roomName">Public DropShare</div>
-        <div class="roomSub">Everyone sees this feed</div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="sidebarStats">
-
-    <div class="statLine">
-      <span>Files</span>
-      <span id="fileCount">0</span>
+    <div class="sidebarTitle">
+      DropShare
     </div>
 
-    <div class="statLine">
-      <span>Storage</span>
-      <span>TempFile</span>
-    </div>
+    <button class="sidebarItem active">
 
-    <div class="statLine">
-      <span>Expiry</span>
-      <span>6 hours</span>
-    </div>
+      <span class="sidebarIcon">
+        🌐
+      </span>
 
-  </div>
+      <span>
+        Public DropShare
+      </span>
 
-</aside>
-
-<section class="content">
-
-  <div class="contentHeader">
-
-    <div>
-      <div class="headerTitle">Public Files</div>
-      <div class="headerSub">
-        Files shared by DropShare users
-      </div>
-    </div>
-
-    <div class="headerSpacer"></div>
-
-    <input
-      id="searchInput"
-      class="search"
-      placeholder="Search files..."
-      autocomplete="off"
-    >
-
-  </div>
-
-  <div class="feed" id="feed">
-
-    <div class="empty" id="emptyState">
-
-      <div class="emptyIcon">☁️</div>
-
-      <div>No files yet</div>
-
-      <div style="font-size:12px;margin-top:5px">
-        Upload something to start the shared feed.
-      </div>
-
-    </div>
-
-    <div class="fileGrid" id="fileGrid"></div>
-
-  </div>
-
-  <div class="uploadDock">
-
-    <button class="uploadButton" id="uploadButton">
-      ＋ Upload File
     </button>
 
-  </div>
+    <div class="sidebarStats">
 
-  <input id="fileInput" type="file">
+      <div class="statCard">
 
-  <div class="dropOverlay" id="dropOverlay">
+        <div class="statLabel">
+          Shared files
+        </div>
 
-    <div class="dropBox">
+        <div
+          class="statValue"
+          id="fileCount">
+          0
+        </div>
 
-      <div class="dropIcon">☁️</div>
-
-      <div class="dropTitle">
-        Drop your file here
       </div>
 
-      <div class="dropSub">
-        Your file will be uploaded to the public DropShare feed.
+      <div class="statCard">
+
+        <div class="statLabel">
+          Feed status
+        </div>
+
+        <div
+          class="statValue"
+          id="feedStatus"
+          style="font-size:15px">
+          Connecting…
+        </div>
+
       </div>
 
     </div>
 
-  </div>
+  </aside>
 
-</section>
+  <!-- MAIN -->
 
-</main>
+  <main class="main">
+
+    <div class="content">
+
+      <div class="headingRow">
+
+        <div class="heading">
+
+          <h1>
+            Public DropShare
+          </h1>
+
+          <p>
+            Share temporary files with everyone using this DropShare.
+          </p>
+
+        </div>
+
+        <button
+          class="uploadButton"
+          id="uploadButton">
+          ＋ Upload file
+        </button>
+
+      </div>
+
+      <!-- SEARCH -->
+
+      <div class="searchBox">
+
+        <span class="searchIcon">
+          ⌕
+        </span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search shared files…"
+          autocomplete="off">
+
+      </div>
+
+      <!-- DROP ZONE -->
+
+      <div
+        class="dropZone"
+        id="dropZone">
+
+        <strong>
+          Drop files here to upload
+        </strong>
+
+        <span>
+          Files are temporarily available for 6 hours · Maximum 100 MB
+        </span>
+
+      </div>
+
+      <input
+        type="file"
+        id="fileInput"
+        multiple
+        hidden>
+
+      <!-- FILES -->
+
+      <div
+        class="fileGrid"
+        id="fileGrid">
+
+        <div class="state">
+
+          <div class="stateIcon">
+            ⏳
+          </div>
+
+          <strong>
+            Loading DropShare…
+          </strong>
+
+          <p>
+            Connecting to the shared feed.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
 
 </div>
 
-<!-- PROFILE -->
+<!-- =========================
+     SETTINGS MODAL
+========================= -->
 
-<div class="modalLayer" id="profileModal">
+<div
+  class="overlay"
+  id="settingsOverlay">
 
-<div class="modal">
+  <div class="modal">
 
-  <div class="modalTitle">Profile</div>
+    <div class="modalHeader">
 
-  <div class="modalSub">
-    Choose the name shown on your uploads.
-  </div>
+      <h2>
+        Settings
+      </h2>
 
-  <div class="profileCenter">
-    <div class="bigAvatar" id="bigAvatar">D</div>
-  </div>
+      <button
+        class="closeButton"
+        data-close="settingsOverlay">
+        ×
+      </button>
 
-  <input
-    id="usernameInput"
-    class="profileInput"
-    maxlength="24"
-    placeholder="Username"
-  >
+    </div>
 
-  <div class="modalActions">
+    <div class="setting">
 
-    <button
-      class="modalButton"
-      data-close="profileModal">
-      Cancel
-    </button>
+      <div class="settingRow">
 
-    <button
-      class="modalButton primary"
-      id="saveProfile">
-      Save
-    </button>
+        <div>
 
-  </div>
+          <div class="settingTitle">
+            Dark mode
+          </div>
 
-</div>
+          <div class="settingDescription">
+            Use a darker DropShare appearance.
+          </div>
 
-</div>
+        </div>
 
-<!-- SETTINGS -->
+        <button
+          class="toggle"
+          id="darkToggle">
 
-<div class="modalLayer" id="settingsModal">
+          <span></span>
 
-<div class="modal">
+        </button>
 
-  <div class="modalTitle">Settings</div>
-
-  <div class="modalSub">
-    DropShare preferences
-  </div>
-
-  <div class="settingRow">
-
-    <div>
-      <div class="settingLabel">Dark Mode</div>
-      <div class="settingSub">
-        Use the darker DropShare appearance
       </div>
+
     </div>
 
-    <div class="switch" id="darkSwitch">
-      <div class="switchKnob"></div>
-    </div>
+    <div class="setting">
 
-  </div>
-
-  <div class="settingRow">
-
-    <div>
-      <div class="settingLabel">Shared Feed</div>
-      <div class="settingSub">
-        Everyone uses the same public index
+      <div class="settingTitle">
+        Temporary files
       </div>
-    </div>
 
-    <div style="font-size:12px;color:var(--green)">
-      ON
-    </div>
-
-  </div>
-
-  <div class="settingRow">
-
-    <div>
-      <div class="settingLabel">Automatic Expiry</div>
-      <div class="settingSub">
-        Files are hosted temporarily
+      <div class="settingDescription">
+        Uploaded files use TempFile.org's 6-hour temporary storage.
       </div>
+
     </div>
 
-    <div style="font-size:12px;color:var(--muted)">
-      6 hours
+    <div class="setting">
+
+      <div class="settingTitle">
+        Shared feed
+      </div>
+
+      <div class="settingDescription">
+        DropShare uses a shared public index so uploads appear for other users of the site.
+      </div>
+
     </div>
-
-  </div>
-
-  <div class="modalActions">
-
-    <button
-      class="modalButton primary"
-      data-close="settingsModal">
-      Done
-    </button>
 
   </div>
 
 </div>
 
+<!-- =========================
+     PROFILE MODAL
+========================= -->
+
+<div
+  class="overlay"
+  id="profileOverlay">
+
+  <div class="modal">
+
+    <div class="modalHeader">
+
+      <h2>
+        Profile
+      </h2>
+
+      <button
+        class="closeButton"
+        data-close="profileOverlay">
+        ×
+      </button>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="settingTitle">
+        Display name
+      </div>
+
+      <div class="settingDescription">
+        This name is shown beside files you upload.
+      </div>
+
+      <input
+        class="profileInput"
+        id="usernameInput"
+        maxlength="30"
+        placeholder="Enter a username">
+
+      <button
+        class="saveButton"
+        id="saveProfileButton">
+        Save profile
+      </button>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="settingTitle">
+        Your local uploads
+      </div>
+
+      <div class="settingDescription">
+        DropShare remembers which files were uploaded from this browser so you can take them down.
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
 
 <script>
 
-/*
-=========================================================
-                  DROPSHARE BACKEND
-=========================================================
+/* ============================================================
+   DROPSHARE CONFIGURATION
+============================================================ */
 
-Actual file:
-TempFile.org
+const TEMPFILE_API =
+  "https://tempfile.org/api";
 
-Shared index:
-MantleDB
+const MANTLE_API =
+  "https://mantledb.sh/v2";
 
-No Supabase.
-No Firebase.
-No API key.
-No database setup.
-
-Every DropShare copy uses this SAME namespace.
-=========================================================
-*/
-
-
-/* =====================================================
-   CONFIG
-===================================================== */
-
-const TEMPFILE_UPLOAD =
-  "https://tempfile.org/api/upload/local";
-
-
-/*
- IMPORTANT:
-
- This is the shared public namespace.
-
- MantleDB says unclaimed namespaces can be
- read and written without authentication.
-
- Everyone using this exact namespace therefore
- sees the same DropShare files.
-*/
 const MANTLE_NAMESPACE =
   "dropshare-public-angus-2026";
 
-
-/*
- The MantleDB entry prefix.
-
- Each file gets its own entry:
-
- file/xxxxxxxx
-
- That means the public list endpoint can
- discover every uploaded file.
-*/
-const FILE_PREFIX =
+const MANTLE_PREFIX =
   "file";
 
-
-/*
- TempFile supports 1, 6, 24 and 48 hours.
-
- We use 6.
-*/
-const EXPIRY_HOURS = 6;
-
-
-/*
- TempFile maximum:
- 100 MB per file.
-*/
 const MAX_FILE_SIZE =
- 100 * 1024 * 1024;
+  100 * 1024 * 1024;
 
 
-/* =====================================================
+/* ============================================================
    STATE
-===================================================== */
+============================================================ */
 
 let files = [];
 
@@ -1038,7 +1466,7 @@ let username =
   localStorage.getItem(
     "dropshare_username"
   ) ||
-  "DropShare User";
+  "Guest";
 
 let darkMode =
   localStorage.getItem(
@@ -1046,9 +1474,14 @@ let darkMode =
   ) === "true";
 
 
-/* =====================================================
+/* ============================================================
    ELEMENTS
-===================================================== */
+============================================================ */
+
+const fileGrid =
+  document.getElementById(
+    "fileGrid"
+  );
 
 const fileInput =
   document.getElementById(
@@ -1060,14 +1493,9 @@ const uploadButton =
     "uploadButton"
   );
 
-const fileGrid =
+const refreshButton =
   document.getElementById(
-    "fileGrid"
-  );
-
-const emptyState =
-  document.getElementById(
-    "emptyState"
+    "refreshButton"
   );
 
 const searchInput =
@@ -1075,24 +1503,59 @@ const searchInput =
     "searchInput"
   );
 
-const toast =
+const dropZone =
   document.getElementById(
-    "toast"
+    "dropZone"
   );
 
-const profileModal =
+const fileCount =
   document.getElementById(
-    "profileModal"
+    "fileCount"
   );
 
-const settingsModal =
+const feedStatus =
   document.getElementById(
-    "settingsModal"
+    "feedStatus"
+  );
+
+const settingsButton =
+  document.getElementById(
+    "settingsButton"
+  );
+
+const profileButton =
+  document.getElementById(
+    "profileButton"
+  );
+
+const settingsOverlay =
+  document.getElementById(
+    "settingsOverlay"
+  );
+
+const profileOverlay =
+  document.getElementById(
+    "profileOverlay"
+  );
+
+const darkToggle =
+  document.getElementById(
+    "darkToggle"
   );
 
 const usernameInput =
   document.getElementById(
     "usernameInput"
+  );
+
+const saveProfileButton =
+  document.getElementById(
+    "saveProfileButton"
+  );
+
+const toast =
+  document.getElementById(
+    "toast"
   );
 
 const topUsername =
@@ -1105,25 +1568,222 @@ const topAvatar =
     "topAvatar"
   );
 
-const bigAvatar =
-  document.getElementById(
-    "bigAvatar"
+
+/* ============================================================
+   GENERAL HELPERS
+============================================================ */
+
+function randomID(){
+
+  return (
+    Date.now().toString(36) +
+    Math.random()
+      .toString(36)
+      .slice(2,10)
   );
+}
 
-const darkSwitch =
-  document.getElementById(
-    "darkSwitch"
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+function formatBytes(bytes){
+
+  if(!bytes)
+    return "0 B";
+
+  const units = [
+    "B",
+    "KB",
+    "MB",
+    "GB"
+  ];
+
+  let i = 0;
+  let size = Number(bytes);
+
+  while(
+    size >= 1024 &&
+    i < units.length - 1
+  ){
+
+    size /= 1024;
+    i++;
+  }
+
+  return (
+    size.toFixed(
+      size >= 10 || i === 0
+        ? 0
+        : 1
+    ) +
+    " " +
+    units[i]
   );
+}
 
-const dropOverlay =
-  document.getElementById(
-    "dropOverlay"
+
+function timeAgo(date){
+
+  const seconds =
+    Math.floor(
+      (Date.now() -
+        new Date(date).getTime()) /
+      1000
+    );
+
+  if(seconds < 10)
+    return "just now";
+
+  if(seconds < 60)
+    return seconds + "s ago";
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+  if(minutes < 60)
+    return minutes + "m ago";
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+  if(hours < 24)
+    return hours + "h ago";
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+  return days + "d ago";
+}
+
+
+function timeUntil(date){
+
+  const diff =
+    new Date(date).getTime() -
+    Date.now();
+
+  if(diff <= 0)
+    return "Expired";
+
+  const minutes =
+    Math.floor(
+      diff / 60000
+    );
+
+  if(minutes < 60)
+    return (
+      minutes +
+      " min remaining"
+    );
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+  const remainingMinutes =
+    minutes % 60;
+
+  if(hours < 24){
+
+    if(remainingMinutes === 0)
+      return (
+        hours +
+        "h remaining"
+      );
+
+    return (
+      hours +
+      "h " +
+      remainingMinutes +
+      "m remaining"
+    );
+  }
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+  return (
+    days +
+    "d remaining"
   );
+}
 
 
-/* =====================================================
-   BASIC HELPERS
-===================================================== */
+function getFileIcon(file){
+
+  const name =
+    (file.name || "")
+      .toLowerCase();
+
+  const type =
+    (file.type || "")
+      .toLowerCase();
+
+  if(
+    type.startsWith("image/") ||
+    /\.(png|jpg|jpeg|gif|webp|svg|bmp|ico)$/i.test(name)
+  )
+    return "🖼️";
+
+  if(
+    type.startsWith("video/") ||
+    /\.(mp4|mov|avi|mkv|webm)$/i.test(name)
+  )
+    return "🎬";
+
+  if(
+    type.startsWith("audio/") ||
+    /\.(mp3|wav|ogg|m4a|flac)$/i.test(name)
+  )
+    return "🎵";
+
+  if(
+    /\.(zip|rar|7z|tar|gz)$/i.test(name)
+  )
+    return "📦";
+
+  if(
+    /\.(html|htm|css|js|json|py|cpp|c|java|php)$/i.test(name)
+  )
+    return "💻";
+
+  if(
+    /\.exe$/i.test(name)
+  )
+    return "⚙️";
+
+  if(
+    type.includes("pdf") ||
+    /\.pdf$/i.test(name)
+  )
+    return "📕";
+
+  if(
+    /\.(doc|docx|txt|rtf)$/i.test(name)
+  )
+    return "📄";
+
+  return "📁";
+}
+
 
 function showToast(message){
 
@@ -1135,12 +1795,12 @@ function showToast(message){
   );
 
   clearTimeout(
-    showToast.timer
+    window.toastTimer
   );
 
-  showToast.timer =
+  window.toastTimer =
     setTimeout(
-      ()=>{
+      () => {
         toast.classList.remove(
           "show"
         );
@@ -1150,265 +1810,13 @@ function showToast(message){
 }
 
 
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-}
-
-
-function formatBytes(bytes){
-
-  if(
-    !bytes ||
-    bytes === 0
-  ){
-    return "0 B";
-  }
-
-  const units =
-    [
-      "B",
-      "KB",
-      "MB",
-      "GB"
-    ];
-
-  const i =
-    Math.floor(
-      Math.log(bytes) /
-      Math.log(1024)
-    );
-
-  return (
-    (
-      bytes /
-      Math.pow(
-        1024,
-        i
-      )
-    ).toFixed(
-      i === 0
-        ? 0
-        : 1
-    )
-    +
-    " " +
-    units[i]
-  );
-}
-
-
-function randomID(){
-
-  return (
-    Date.now()
-      .toString(36)
-    +
-    "-"
-    +
-    Math.random()
-      .toString(36)
-      .slice(2,10)
-  );
-}
-
-
-function getFileIcon(name){
-
-  const extension =
-    name
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-  const icons = {
-
-    zip:"🗜️",
-    rar:"🗜️",
-    "7z":"🗜️",
-
-    png:"🖼️",
-    jpg:"🖼️",
-    jpeg:"🖼️",
-    gif:"🖼️",
-    webp:"🖼️",
-
-    mp4:"🎬",
-    mov:"🎬",
-    avi:"🎬",
-    webm:"🎬",
-
-    mp3:"🎵",
-    wav:"🎵",
-    flac:"🎵",
-
-    html:"🌐",
-    htm:"🌐",
-    css:"🎨",
-    js:"📜",
-
-    exe:"⚙️",
-    msi:"⚙️",
-
-    pdf:"📕",
-
-    doc:"📄",
-    docx:"📄",
-
-    xls:"📊",
-    xlsx:"📊",
-
-    txt:"📝",
-
-    apk:"📦",
-
-    iso:"💿"
-  };
-
-  return (
-    icons[extension] ||
-    "📄"
-  );
-}
-
-
-function timeAgo(timestamp){
-
-  const difference =
-    Date.now() -
-    Number(timestamp);
-
-  const seconds =
-    Math.floor(
-      difference /
-      1000
-    );
-
-  if(
-    seconds < 10
-  ){
-    return "just now";
-  }
-
-  if(
-    seconds < 60
-  ){
-    return seconds + "s ago";
-  }
-
-  const minutes =
-    Math.floor(
-      seconds /
-      60
-    );
-
-  if(
-    minutes < 60
-  ){
-    return minutes + "m ago";
-  }
-
-  const hours =
-    Math.floor(
-      minutes /
-      60
-    );
-
-  if(
-    hours < 24
-  ){
-    return hours + "h ago";
-  }
-
-  const days =
-    Math.floor(
-      hours /
-      24
-    );
-
-  return days + "d ago";
-}
-
-
-function timeUntil(timestamp){
-
-  const remaining =
-    Number(timestamp) -
-    Date.now();
-
-  if(
-    remaining <= 0
-  ){
-    return "expired";
-  }
-
-  const minutes =
-    Math.floor(
-      remaining /
-      60000
-    );
-
-  if(
-    minutes < 60
-  ){
-    return minutes + "m";
-  }
-
-  const hours =
-    Math.floor(
-      minutes /
-      60
-    );
-
-  const mins =
-    minutes %
-    60;
-
-  if(
-    mins === 0
-  ){
-    return hours + "h";
-  }
-
-  return (
-    hours +
-    "h " +
-    mins +
-    "m"
-  );
-}
-
-
-/* =====================================================
+/* ============================================================
    PROFILE
-===================================================== */
+============================================================ */
 
-function updateProfile(){
+function updateProfileUI(){
 
   topUsername.textContent =
-    username;
-
-  usernameInput.value =
     username;
 
   const letter =
@@ -1416,55 +1824,86 @@ function updateProfile(){
       .trim()
       .charAt(0)
       .toUpperCase() ||
-    "D";
+    "A";
 
   topAvatar.textContent =
     letter;
 
-  bigAvatar.textContent =
-    letter;
+  usernameInput.value =
+    username;
 }
 
-updateProfile();
+
+saveProfileButton.onclick =
+  () => {
+
+    const newName =
+      usernameInput.value
+        .trim();
+
+    username =
+      newName ||
+      "Guest";
+
+    localStorage.setItem(
+      "dropshare_username",
+      username
+    );
+
+    updateProfileUI();
+
+    profileOverlay.classList.remove(
+      "show"
+    );
+
+    showToast(
+      "Profile saved."
+    );
+  };
 
 
-/* =====================================================
-   THEME
-===================================================== */
+/* ============================================================
+   DARK MODE
+============================================================ */
 
-function applyTheme(){
+function updateTheme(){
 
   document.body.classList.toggle(
     "dark",
     darkMode
   );
 
-  darkSwitch.classList.toggle(
+  darkToggle.classList.toggle(
     "on",
+    darkMode
+  );
+
+  localStorage.setItem(
+    "dropshare_dark",
     darkMode
   );
 }
 
-applyTheme();
+
+darkToggle.onclick =
+  () => {
+
+    darkMode =
+      !darkMode;
+
+    updateTheme();
+  };
 
 
-/* =====================================================
-   MANTLEDB — LIST PUBLIC FILES
-===================================================== */
-
-/*
- EXACT documented endpoint:
-
- GET /v2/list/:namespace
-
- For an unclaimed namespace,
- public entries are returned without a key.
-*/
+/* ============================================================
+   MANTLEDB
+============================================================ */
 
 async function mantleList(){
 
   const url =
-    "https://mantledb.sh/v2/list/" +
+    MANTLE_API +
+    "/list/" +
     encodeURIComponent(
       MANTLE_NAMESPACE
     );
@@ -1473,14 +1912,11 @@ async function mantleList(){
     await fetch(
       url,
       {
-        method:"GET",
         cache:"no-store"
       }
     );
 
-  if(
-    !response.ok
-  ){
+  if(!response.ok){
 
     throw new Error(
       "MantleDB list failed: HTTP " +
@@ -1488,20 +1924,15 @@ async function mantleList(){
     );
   }
 
-  return response.json();
+  return await response.json();
 }
 
 
-/* =====================================================
-   MANTLEDB — READ FILE ENTRY
-===================================================== */
-
-async function mantleRead(
-  path
-){
+async function mantleRead(path){
 
   const url =
-    "https://mantledb.sh/v2/" +
+    MANTLE_API +
+    "/" +
     encodeURIComponent(
       MANTLE_NAMESPACE
     ) +
@@ -1517,42 +1948,16 @@ async function mantleRead(
     await fetch(
       url,
       {
-        method:"GET",
         cache:"no-store"
       }
     );
 
-  if(
-    response.status === 404
-  ){
+  if(!response.ok)
     return null;
-  }
 
-  if(
-    !response.ok
-  ){
-
-    throw new Error(
-      "MantleDB read failed: HTTP " +
-      response.status
-    );
-  }
-
-  return response.json();
+  return await response.json();
 }
 
-
-/* =====================================================
-   MANTLEDB — WRITE FILE ENTRY
-===================================================== */
-
-/*
- EXACT documented endpoint:
-
- POST /v2/:namespace/*path
-
- An unclaimed namespace doesn't need a key.
-*/
 
 async function mantleWrite(
   path,
@@ -1560,7 +1965,8 @@ async function mantleWrite(
 ){
 
   const url =
-    "https://mantledb.sh/v2/" +
+    MANTLE_API +
+    "/" +
     encodeURIComponent(
       MANTLE_NAMESPACE
     ) +
@@ -1584,191 +1990,296 @@ async function mantleWrite(
         },
 
         body:
-          JSON.stringify(
-            data
-          )
+          JSON.stringify(data)
       }
     );
 
-  const responseText =
-    await response.text();
-
-  if(
-    !response.ok
-  ){
+  if(!response.ok){
 
     throw new Error(
       "MantleDB write failed: HTTP " +
-      response.status +
-      " — " +
-      responseText
+      response.status
     );
   }
 
-  try{
-
-    return JSON.parse(
-      responseText
-    );
-
-  }catch{
-
-    return {
-      success:true
-    };
-  }
+  return response;
 }
 
 
-/* =====================================================
-   LOAD SHARED FEED
-===================================================== */
+/* ============================================================
+   LOAD SHARED FILE FEED
+============================================================ */
 
 async function loadFiles(){
 
+  feedStatus.textContent =
+    "Loading…";
+
   try{
 
-    const result =
+    const list =
       await mantleList();
 
-    /*
-      MantleDB returns:
+    let entries = [];
 
-      {
-        namespace:"...",
-        entries:[
-          {
-            path:"file/abc",
-            public_read:1,
-            updated_at:...
-          }
-        ]
-      }
+    /*
+      MantleDB returns the namespace
+      entries. We only use entries
+      under the "file" prefix.
     */
 
-    const entries =
-      Array.isArray(
-        result.entries
-      )
-      ? result.entries
-      : [];
+    if(Array.isArray(list)){
+
+      entries =
+        list;
+
+    }else if(
+      list &&
+      Array.isArray(list.entries)
+    ){
+
+      entries =
+        list.entries;
+
+    }else if(
+      list &&
+      Array.isArray(list.items)
+    ){
+
+      entries =
+        list.items;
+    }
+
+    const fileEntries =
+      entries.filter(
+        entry => {
+
+          const path =
+            entry.path ||
+            entry.key ||
+            entry.name ||
+            "";
+
+          return path.startsWith(
+            MANTLE_PREFIX + "/"
+          );
+        }
+      );
 
     const loaded =
       [];
 
-    /*
-      Read every public file entry.
-    */
-
     for(
       const entry
-      of entries
+      of fileEntries
     ){
 
-      if(
-        !entry ||
-        !entry.path
-      ){
+      const path =
+        entry.path ||
+        entry.key ||
+        entry.name;
+
+      if(!path)
         continue;
-      }
 
-      /*
-        Only accept DropShare file entries.
-      */
+      try{
 
-      if(
-        !entry.path.startsWith(
-          FILE_PREFIX + "/"
-        )
-      ){
-        continue;
-      }
+        const data =
+          await mantleRead(
+            path
+              .replace(
+                new RegExp(
+                  "^" +
+                  MANTLE_PREFIX +
+                  "/"
+                ),
+                ""
+              )
+          );
 
-      const data =
-        await mantleRead(
-          entry.path
+        if(
+          data &&
+          data.name &&
+          data.url
+        ){
+
+          loaded.push(
+            data
+          );
+        }
+
+      }catch(error){
+
+        console.warn(
+          "Couldn't read entry:",
+          error
         );
-
-      if(
-        !data
-      ){
-        continue;
       }
-
-      /*
-        Don't display entries whose TempFile
-        lifetime has already ended.
-      */
-
-      if(
-        data.expiresAt &&
-        Number(
-          data.expiresAt
-        ) <= Date.now()
-      ){
-        continue;
-      }
-
-      if(
-        !data.url ||
-        !data.name
-      ){
-        continue;
-      }
-
-      loaded.push(
-        data
-      );
     }
 
-    loaded.sort(
-      (a,b)=>
-        Number(
+    /*
+      Remove expired records from
+      the visible feed.
+    */
+
+    files =
+      loaded.filter(
+        file => {
+
+          if(!file.expiresAt)
+            return true;
+
+          return (
+            new Date(
+              file.expiresAt
+            ).getTime() >
+            Date.now()
+          );
+        }
+      );
+
+    /*
+      Newest first.
+    */
+
+    files.sort(
+      (a,b) =>
+        new Date(
           b.uploadedAt || 0
-        )
-        -
-        Number(
+        ) -
+        new Date(
           a.uploadedAt || 0
         )
     );
 
-    files =
-      loaded;
+    feedStatus.textContent =
+      "Online";
 
     renderFiles();
 
   }catch(error){
 
     console.error(
-      "DropShare feed error:",
+      "Feed error:",
       error
     );
 
-    /*
-      Don't hide the useful error from
-      the developer console.
-    */
+    feedStatus.textContent =
+      "Offline";
 
-    showToast(
-      "Couldn't load shared files."
+    fileGrid.innerHTML = `
+      <div class="state">
+
+        <div class="stateIcon">
+          ⚠️
+        </div>
+
+        <strong>
+          Couldn't load the shared feed
+        </strong>
+
+        <p>
+          ${escapeHTML(
+            error.message ||
+            "Unknown error"
+          )}
+        </p>
+
+        <button
+          class="uploadButton"
+          style="margin-top:12px"
+          onclick="loadFiles()">
+          Try again
+        </button>
+
+      </div>
+    `;
+  }
+}
+
+
+/* ============================================================
+   LOCAL UPLOAD OWNERSHIP
+============================================================ */
+
+function getMyUploads(){
+
+  try{
+
+    const data =
+      JSON.parse(
+        localStorage.getItem(
+          "dropshare_my_uploads"
+        ) || "[]"
+      );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  }catch{
+
+    return [];
+  }
+}
+
+
+function rememberMyUpload(
+  id
+){
+
+  const uploads =
+    getMyUploads();
+
+  if(
+    !uploads.includes(id)
+  ){
+
+    uploads.push(id);
+
+    localStorage.setItem(
+      "dropshare_my_uploads",
+      JSON.stringify(
+        uploads
+      )
     );
   }
 }
 
 
-/* =====================================================
-   UPLOAD TO TEMPFILE
-===================================================== */
+function forgetMyUpload(
+  id
+){
+
+  const uploads =
+    getMyUploads()
+      .filter(
+        item =>
+          item !== id
+      );
+
+  localStorage.setItem(
+    "dropshare_my_uploads",
+    JSON.stringify(
+      uploads
+    )
+  );
+}
+
+
+/* ============================================================
+   UPLOAD
+============================================================ */
 
 async function uploadFile(
   file
 ){
 
   if(
-    !file
-  ){
+    !file ||
+    !file.size
+  )
     return;
-  }
 
   if(
     file.size >
@@ -1776,7 +2287,7 @@ async function uploadFile(
   ){
 
     showToast(
-      "That file is over 100 MB."
+      `${file.name} is larger than 100 MB.`
     );
 
     return;
@@ -1784,23 +2295,15 @@ async function uploadFile(
 
   try{
 
-    uploadButton.disabled =
-      true;
-
-    uploadButton.textContent =
-      "Uploading…";
-
     showToast(
       "Uploading " +
       file.name +
       "…"
     );
 
-
-    /* ---------------------------------------------
-       STEP 1
-       Upload actual file to TempFile
-    --------------------------------------------- */
+    /*
+      Upload actual file to TempFile.
+    */
 
     const formData =
       new FormData();
@@ -1813,86 +2316,46 @@ async function uploadFile(
 
     formData.append(
       "expiryHours",
-      String(
-        EXPIRY_HOURS
-      )
+      "6"
     );
 
-
-    const tempResponse =
+    const response =
       await fetch(
-        TEMPFILE_UPLOAD,
+        TEMPFILE_API +
+        "/upload/local",
         {
           method:"POST",
           body:formData
         }
       );
 
-
-    const tempText =
-      await tempResponse.text();
-
-    let tempResult;
-
-    try{
-
-      tempResult =
-        JSON.parse(
-          tempText
-        );
-
-    }catch{
+    if(!response.ok){
 
       throw new Error(
-        "TempFile returned invalid JSON: " +
-        tempText.slice(0,200)
+        "TempFile upload failed: HTTP " +
+        response.status
       );
     }
 
+    const result =
+      await response.json();
 
     if(
-      !tempResponse.ok ||
-      !tempResult.success
+      !result.files ||
+      !result.files.length
     ){
 
       throw new Error(
-        tempResult.error ||
-        "TempFile upload failed."
+        "TempFile did not return a file."
       );
     }
-
-
-    if(
-      !Array.isArray(
-        tempResult.files
-      ) ||
-      !tempResult.files.length
-    ){
-
-      throw new Error(
-        "TempFile didn't return a file."
-      );
-    }
-
 
     const tempFile =
-      tempResult.files[0];
+      result.files[0];
 
-
-    if(
-      !tempFile.url
-    ){
-
-      throw new Error(
-        "TempFile didn't return a download URL."
-      );
-    }
-
-
-    /* ---------------------------------------------
-       STEP 2
-       Build DropShare index record
-    --------------------------------------------- */
+    /*
+      Create DropShare shared record.
+    */
 
     const record = {
 
@@ -1908,10 +2371,8 @@ async function uploadFile(
         file.name,
 
       size:
-        Number(
-          tempFile.size ||
-          file.size
-        ),
+        tempFile.size ||
+        file.size,
 
       type:
         file.type ||
@@ -1924,53 +2385,48 @@ async function uploadFile(
         username,
 
       uploadedAt:
-        Date.now(),
+        new Date().toISOString(),
 
       expiresAt:
-        Number(
-          tempFile.expiryTime
-        ) ||
-        (
-          Date.now()
-          +
-          EXPIRY_HOURS *
-          60 *
-          60 *
-          1000
-        )
+        tempFile.expiryTime ||
+        new Date(
+          Date.now() +
+          6 * 60 * 60 * 1000
+        ).toISOString(),
 
+      localOwner:
+        true
     };
 
-
-    /* ---------------------------------------------
-       STEP 3
-       Save link in shared MantleDB
-    --------------------------------------------- */
+    /*
+      Write the public index entry.
+    */
 
     const mantlePath =
-      FILE_PREFIX +
+      MANTLE_PREFIX +
       "/" +
       record.id;
-
 
     await mantleWrite(
       mantlePath,
       record
     );
 
+    /*
+      Remember this file on this
+      browser so it gets the
+      Take Down button.
+    */
 
-    /* ---------------------------------------------
-       STEP 4
-       Reload shared feed
-    --------------------------------------------- */
-
-    await loadFiles();
-
-
-    showToast(
-      "Uploaded! Everyone can now see it."
+    rememberMyUpload(
+      record.id
     );
 
+    showToast(
+      "File uploaded successfully."
+    );
+
+    await loadFiles();
 
   }catch(error){
 
@@ -1983,25 +2439,218 @@ async function uploadFile(
       error.message ||
       "Upload failed."
     );
-
-  }finally{
-
-    uploadButton.disabled =
-      false;
-
-    uploadButton.textContent =
-      "＋ Upload File";
   }
 }
 
 
-/* =====================================================
+/* ============================================================
+   MULTIPLE FILE UPLOAD
+============================================================ */
+
+async function uploadFiles(
+  selectedFiles
+){
+
+  const list =
+    Array.from(
+      selectedFiles || []
+    );
+
+  if(!list.length)
+    return;
+
+  /*
+    Upload one at a time so the UI
+    stays reliable and TempFile's
+    limits aren't accidentally hit.
+  */
+
+  for(
+    const file
+    of list
+  ){
+
+    await uploadFile(
+      file
+    );
+  }
+}
+
+
+/* ============================================================
+   TAKE DOWN FILE
+============================================================ */
+
+async function deleteMyFile(
+  file
+){
+
+  const myUploads =
+    getMyUploads();
+
+  /*
+    Only allow the browser that
+    originally uploaded the file
+    to see/use the takedown action.
+  */
+
+  if(
+    !myUploads.includes(
+      file.id
+    )
+  ){
+
+    showToast(
+      "You can only remove files uploaded from this browser."
+    );
+
+    return;
+  }
+
+  const confirmed =
+    confirm(
+      `Remove "${file.name}"?\n\n` +
+      `This will remove it from DropShare and request deletion of the temporary file.`
+    );
+
+  if(!confirmed)
+    return;
+
+  try{
+
+    showToast(
+      "Taking down " +
+      file.name +
+      "…"
+    );
+
+    /*
+      1. Delete actual file from
+         TempFile.
+    */
+
+    if(
+      file.tempfileId
+    ){
+
+      try{
+
+        const tempResponse =
+          await fetch(
+            TEMPFILE_API +
+            "/file/" +
+            encodeURIComponent(
+              file.tempfileId
+            ),
+            {
+              method:"DELETE"
+            }
+          );
+
+        /*
+          TempFile deletion may return
+          an error if the temporary file
+          has already expired. We still
+          try to remove the public
+          DropShare listing.
+        */
+
+        if(
+          !tempResponse.ok
+        ){
+
+          console.warn(
+            "TempFile deletion returned:",
+            tempResponse.status
+          );
+        }
+
+      }catch(error){
+
+        console.warn(
+          "TempFile deletion error:",
+          error
+        );
+      }
+    }
+
+    /*
+      2. Delete shared DropShare
+         entry from MantleDB.
+    */
+
+    const mantleURL =
+      MANTLE_API +
+      "/" +
+      encodeURIComponent(
+        MANTLE_NAMESPACE
+      ) +
+      "/" +
+      MANTLE_PREFIX +
+      "/" +
+      encodeURIComponent(
+        file.id
+      );
+
+    const mantleResponse =
+      await fetch(
+        mantleURL,
+        {
+          method:"DELETE"
+        }
+      );
+
+    if(
+      !mantleResponse.ok
+    ){
+
+      throw new Error(
+        "Couldn't remove the DropShare entry. HTTP " +
+        mantleResponse.status
+      );
+    }
+
+    /*
+      3. Remove it from this
+         browser's upload list.
+    */
+
+    forgetMyUpload(
+      file.id
+    );
+
+    /*
+      4. Reload the public feed.
+    */
+
+    await loadFiles();
+
+    showToast(
+      "File taken down."
+    );
+
+  }catch(error){
+
+    console.error(
+      "Delete error:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Couldn't take down the file."
+    );
+  }
+}
+
+
+/* ============================================================
    RENDER FILES
-===================================================== */
+============================================================ */
 
 function renderFiles(){
 
-  const search =
+  const query =
     searchInput.value
       .trim()
       .toLowerCase();
@@ -2010,155 +2659,188 @@ function renderFiles(){
     files.filter(
       file => {
 
-        if(
-          !search
-        ){
+        if(!query)
           return true;
-        }
 
         return (
+          String(
+            file.name || ""
+          )
+            .toLowerCase()
+            .includes(query) ||
 
           String(
-            file.name
+            file.uploader || ""
           )
-          .toLowerCase()
-          .includes(
-            search
-          )
-
-          ||
-
-          String(
-            file.uploader ||
-            ""
-          )
-          .toLowerCase()
-          .includes(
-            search
-          )
-
+            .toLowerCase()
+            .includes(query)
         );
-
       }
     );
 
-
-  fileGrid.innerHTML =
-    "";
-
-
-  document.getElementById(
-    "fileCount"
-  ).textContent =
+  fileCount.textContent =
     files.length;
 
+  if(!filtered.length){
 
-  if(
-    filtered.length === 0
-  ){
+    fileGrid.innerHTML = `
+      <div class="state">
 
-    emptyState.style.display =
-      "flex";
+        <div class="stateIcon">
+          ${query ? "🔎" : "📂"}
+        </div>
+
+        <strong>
+          ${
+            query
+              ? "No matching files"
+              : "No shared files yet"
+          }
+        </strong>
+
+        <p>
+          ${
+            query
+              ? "Try a different search."
+              : "Upload the first file to DropShare."
+          }
+        </p>
+
+      </div>
+    `;
 
     return;
   }
 
+  const myUploads =
+    getMyUploads();
 
-  emptyState.style.display =
-    "none";
+  fileGrid.innerHTML =
+    filtered
+      .map(
+        file => {
 
+          const isMine =
+            myUploads.includes(
+              file.id
+            );
 
-  for(
-    const file
-    of filtered
-  ){
+          return `
 
-    const card =
-      document.createElement(
-        "div"
-      );
+            <article
+              class="fileCard">
 
-    card.className =
-      "fileCard";
+              <div class="fileTop">
 
+                <div class="fileIcon">
+                  ${getFileIcon(file)}
+                </div>
 
-    card.innerHTML = `
+                <div class="fileInfo">
 
-      <div class="fileTop">
+                  <div
+                    class="fileName"
+                    title="${escapeHTML(
+                      file.name
+                    )}">
 
-        <div class="fileIcon">
-          ${getFileIcon(
-            file.name
-          )}
-        </div>
+                    ${escapeHTML(
+                      file.name
+                    )}
 
-        <div class="fileInfo">
+                  </div>
 
-          <div
-            class="fileName"
-            title="${escapeHTML(
-              file.name
-            )}">
-            ${escapeHTML(
-              file.name
-            )}
-          </div>
+                  <div class="fileMeta">
 
-          <div class="fileMeta">
-            ${formatBytes(
-              file.size
-            )}
-            ·
-            ${escapeHTML(
-              file.uploader ||
-              "Unknown"
-            )}
-          </div>
+                    ${formatBytes(
+                      file.size
+                    )}
 
-        </div>
+                    ·
 
-      </div>
+                    ${escapeHTML(
+                      file.uploader ||
+                      "Guest"
+                    )}
 
-      <div class="fileTime">
-        Uploaded
-        ${timeAgo(
-          file.uploadedAt
-        )}
-        · expires in
-        ${timeUntil(
-          file.expiresAt
-        )}
-      </div>
+                    ·
 
-      <div class="fileActions">
+                    ${timeAgo(
+                      file.uploadedAt
+                    )}
 
-        <button
-          class="downloadButton"
-          data-url="${escapeHTML(
-            file.url
-          )}">
-          ↓ Download
-        </button>
+                  </div>
 
-        <button
-          class="copyButton"
-          data-copy="${escapeHTML(
-            file.url
-          )}"
-          title="Copy download link">
-          🔗
-        </button>
+                </div>
 
-      </div>
+              </div>
 
-    `;
+              <div class="expiry">
 
+                ⏱️
+                ${
+                  file.expiresAt
+                    ? timeUntil(
+                        file.expiresAt
+                      )
+                    : "Temporary file"
+                }
 
-    fileGrid.appendChild(
-      card
-    );
-  }
+              </div>
 
+              <div class="fileActions">
+
+                <button
+                  class="downloadButton"
+                  data-url="${escapeHTML(
+                    file.url
+                  )}">
+
+                  ↓ Download
+
+                </button>
+
+                <button
+                  class="copyButton"
+                  data-copy="${escapeHTML(
+                    file.url
+                  )}"
+                  title="Copy download link">
+
+                  🔗
+
+                </button>
+
+                ${
+                  isMine
+                    ? `
+
+                      <button
+                        class="deleteButton"
+                        data-id="${escapeHTML(
+                          file.id
+                        )}"
+                        title="Take down this file">
+
+                        🗑️
+
+                      </button>
+
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </article>
+          `;
+        }
+      )
+      .join("");
+
+  /*
+    Download buttons.
+  */
 
   document
     .querySelectorAll(
@@ -2173,16 +2855,21 @@ function renderFiles(){
             const url =
               button.dataset.url;
 
+            if(!url)
+              return;
+
             window.open(
               url,
               "_blank",
               "noopener"
             );
           };
-
       }
     );
 
+  /*
+    Copy buttons.
+  */
 
   document
     .querySelectorAll(
@@ -2194,161 +2881,187 @@ function renderFiles(){
         button.onclick =
           async () => {
 
+            const url =
+              button.dataset.copy;
+
+            if(!url)
+              return;
+
             try{
 
-              await navigator
-                .clipboard
+              await navigator.clipboard
                 .writeText(
-                  button.dataset.copy
+                  url
                 );
 
               showToast(
-                "Link copied."
+                "Download link copied."
               );
 
             }catch{
 
+              /*
+                Fallback for browsers
+                where clipboard access
+                is unavailable.
+              */
+
+              const textarea =
+                document.createElement(
+                  "textarea"
+                );
+
+              textarea.value =
+                url;
+
+              document.body.appendChild(
+                textarea
+              );
+
+              textarea.select();
+
+              document.execCommand(
+                "copy"
+              );
+
+              textarea.remove();
+
               showToast(
-                "Couldn't copy link."
+                "Download link copied."
               );
             }
-
           };
+      }
+    );
 
+  /*
+    Take Down buttons.
+  */
+
+  document
+    .querySelectorAll(
+      ".deleteButton"
+    )
+    .forEach(
+      button => {
+
+        button.onclick =
+          async () => {
+
+            const file =
+              files.find(
+                item =>
+                  item.id ===
+                  button.dataset.id
+              );
+
+            if(!file)
+              return;
+
+            await deleteMyFile(
+              file
+            );
+          };
       }
     );
 }
 
 
-/* =====================================================
-   FILE INPUT
-===================================================== */
+/* ============================================================
+   UPLOAD UI
+============================================================ */
 
 uploadButton.onclick =
   () => {
 
     fileInput.click();
-
   };
 
 
 fileInput.onchange =
   async () => {
 
-    const selected =
-      [...fileInput.files];
+    await uploadFiles(
+      fileInput.files
+    );
 
-    fileInput.value =
-      "";
+    /*
+      Reset so selecting the same
+      file again still triggers
+      change.
+    */
 
-    for(
-      const file
-      of selected
-    ){
-
-      await uploadFile(
-        file
-      );
-    }
-
+    fileInput.value = "";
   };
 
 
-/* =====================================================
+/* ============================================================
    DRAG AND DROP
-===================================================== */
+============================================================ */
 
-let dragCounter =
-  0;
-
-
-window.addEventListener(
+[
   "dragenter",
-  event => {
+  "dragover"
+].forEach(
+  eventName => {
 
-    event.preventDefault();
+    dropZone.addEventListener(
+      eventName,
+      event => {
 
-    dragCounter++;
+        event.preventDefault();
 
-    dropOverlay.classList.add(
-      "show"
+        event.stopPropagation();
+
+        dropZone.classList.add(
+          "dragging"
+        );
+      }
     );
-
   }
 );
 
 
-window.addEventListener(
-  "dragover",
-  event => {
-
-    event.preventDefault();
-
-  }
-);
-
-
-window.addEventListener(
+[
   "dragleave",
-  event => {
+  "drop"
+].forEach(
+  eventName => {
 
-    event.preventDefault();
+    dropZone.addEventListener(
+      eventName,
+      event => {
 
-    dragCounter--;
+        event.preventDefault();
 
-    if(
-      dragCounter <= 0
-    ){
+        event.stopPropagation();
 
-      dragCounter =
-        0;
-
-      dropOverlay.classList.remove(
-        "show"
-      );
-
-    }
-
+        dropZone.classList.remove(
+          "dragging"
+        );
+      }
+    );
   }
 );
 
 
-window.addEventListener(
+dropZone.addEventListener(
   "drop",
   async event => {
 
-    event.preventDefault();
-
-    dragCounter =
-      0;
-
-    dropOverlay.classList.remove(
-      "show"
-    );
-
-
     const dropped =
-      [...event.dataTransfer.files];
+      event.dataTransfer.files;
 
-
-    for(
-      const file
-      of dropped
-    ){
-
-      await uploadFile(
-        file
-      );
-
-    }
-
+    await uploadFiles(
+      dropped
+    );
   }
 );
 
 
-/* =====================================================
+/* ============================================================
    SEARCH
-===================================================== */
+============================================================ */
 
 searchInput.addEventListener(
   "input",
@@ -2356,139 +3069,56 @@ searchInput.addEventListener(
 );
 
 
-/* =====================================================
+/* ============================================================
    REFRESH
-===================================================== */
+============================================================ */
 
-document
-  .getElementById(
-    "refreshBtn"
-  )
-  .onclick =
+refreshButton.onclick =
   async () => {
 
-    showToast(
-      "Refreshing…"
+    refreshButton.style.transform =
+      "rotate(180deg)";
+
+    setTimeout(
+      () => {
+        refreshButton.style.transform =
+          "";
+      },
+      250
     );
 
     await loadFiles();
 
+    showToast(
+      "Feed refreshed."
+    );
   };
 
 
-/* =====================================================
-   SETTINGS
-===================================================== */
+/* ============================================================
+   MODALS
+============================================================ */
 
-document
-  .getElementById(
-    "settingsBtn"
-  )
-  .onclick =
+settingsButton.onclick =
   () => {
 
-    settingsModal.classList.add(
+    settingsOverlay.classList.add(
       "show"
     );
-
   };
 
 
-darkSwitch.onclick =
-  () => {
-
-    darkMode =
-      !darkMode;
-
-    localStorage.setItem(
-      "dropshare_dark",
-      String(
-        darkMode
-      )
-    );
-
-    applyTheme();
-
-  };
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-document
-  .getElementById(
-    "profileBtn"
-  )
-  .onclick =
+profileButton.onclick =
   () => {
 
     usernameInput.value =
       username;
 
-    profileModal.classList.add(
+    profileOverlay.classList.add(
       "show"
     );
-
   };
 
-
-document
-  .getElementById(
-    "saveProfile"
-  )
-  .onclick =
-  () => {
-
-    const value =
-      usernameInput.value
-        .trim()
-        .slice(
-          0,
-          24
-        );
-
-
-    if(
-      !value
-    ){
-
-      showToast(
-        "Enter a username."
-      );
-
-      return;
-    }
-
-
-    username =
-      value;
-
-
-    localStorage.setItem(
-      "dropshare_username",
-      username
-    );
-
-
-    updateProfile();
-
-
-    profileModal.classList.remove(
-      "show"
-    );
-
-
-    showToast(
-      "Profile saved."
-    );
-
-  };
-
-
-/* =====================================================
-   CLOSE MODALS
-===================================================== */
 
 document
   .querySelectorAll(
@@ -2500,76 +3130,111 @@ document
       button.onclick =
         () => {
 
+          const id =
+            button.dataset.close;
+
           document
-            .getElementById(
-              button.dataset.close
-            )
+            .getElementById(id)
             .classList.remove(
               "show"
             );
-
         };
-
     }
   );
 
 
-document
-  .querySelectorAll(
-    ".modalLayer"
-  )
-  .forEach(
-    layer => {
+[
+  settingsOverlay,
+  profileOverlay
+].forEach(
+  overlay => {
 
-      layer.addEventListener(
-        "click",
-        event => {
+    overlay.addEventListener(
+      "click",
+      event => {
 
-          if(
-            event.target ===
-            layer
-          ){
+        if(
+          event.target ===
+          overlay
+        ){
 
-            layer.classList.remove(
-              "show"
-            );
-
-          }
-
+          overlay.classList.remove(
+            "show"
+          );
         }
+      }
+    );
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      settingsOverlay.classList.remove(
+        "show"
       );
 
+      profileOverlay.classList.remove(
+        "show"
+      );
     }
-  );
+  }
+);
 
 
-/* =====================================================
+/* ============================================================
    AUTOMATIC REFRESH
-===================================================== */
+============================================================ */
 
 /*
- Check for new uploads every 15 seconds.
+  Refresh the public feed every
+  15 seconds so uploads from other
+  browsers appear automatically.
 */
 
 setInterval(
-  loadFiles,
+  () => {
+
+    loadFiles();
+
+  },
   15000
 );
 
 
+/* ============================================================
+   UPDATE EXPIRY TIMES
+============================================================ */
+
 /*
- Update the countdown text.
+  Re-render every minute so the
+  "remaining" timer stays current.
 */
 
 setInterval(
-  renderFiles,
-  30000
+  () => {
+
+    renderFiles();
+
+  },
+  60000
 );
 
 
-/* =====================================================
-   START
-===================================================== */
+/* ============================================================
+   STARTUP
+============================================================ */
+
+updateProfileUI();
+
+updateTheme();
 
 loadFiles();
 
